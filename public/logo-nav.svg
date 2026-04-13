@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" role="img" aria-label="teech.au">
+  <title>teech.au</title>
+
+  <!--
+    teech.au — Compact Nav Wordmark
+    Optimised for header bars at ~40px rendered height.
+    Same proportions and colours as logo.svg.
+    Transparent background.
+  -->
+
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@900&amp;display=block');
+      .wm {
+        font-family: 'Nunito', 'Poppins', 'Trebuchet MS', system-ui, sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+    </style>
+  </defs>
+
+  <text
+    class="wm"
+    x="2"
+    y="32"
+    font-size="33"
+    letter-spacing="-0.5"
+    dominant-baseline="auto"
+  >
+    <tspan fill="#F8FBF9">te</tspan><tspan fill="#14B8A6">e</tspan><tspan fill="#F8FBF9">ch</tspan><tspan fill="rgba(20,184,166,0.52)">.au</tspan>
+  </text>
+</svg>

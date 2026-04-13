@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 96" role="img" aria-label="teech.au">
+  <title>teech.au</title>
+
+  <!--
+    teech.au — Primary Wordmark
+    Colours sampled directly from the Gemini-generated logo:
+      Off-white letters:  #F8FBF9
+      Teal (2nd e):       #14B8A6  (platform token, matches sampled #13AB96)
+      Muted .au:          rgba(20,184,166,0.52)  (matches sampled #326E67 on dark bg)
+    Font: Nunito Black (900) — closest match to logo letterforms
+    Transparent background — place on any dark surface.
+    Variants: logo.svg (this), logo-dark.svg, logo-nav.svg, icon.svg
+  -->
+
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@900&amp;display=block');
+      .wm {
+        font-family: 'Nunito', 'Poppins', 'Trebuchet MS', system-ui, sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+    </style>
+  </defs>
+
+  <!--
+    Letter structure (tspan inherits x-flow from parent text):
+      te    — off-white
+      e     — teal  (the signature mark)
+      ch    — off-white
+      .au   — teal at 52% opacity
+  -->
+  <text
+    class="wm"
+    x="4"
+    y="76"
+    font-size="80"
+    letter-spacing="-1"
+    dominant-baseline="auto"
+  >
+    <tspan fill="#F8FBF9">te</tspan><tspan fill="#14B8A6">e</tspan><tspan fill="#F8FBF9">ch</tspan><tspan fill="rgba(20,184,166,0.52)">.au</tspan>
+  </text>
+</svg>
