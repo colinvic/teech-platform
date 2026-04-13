@@ -1,0 +1,32 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/report-card-refresh",
+      "schedule": "0 2 1 * *"
+    },
+    {
+      "path": "/api/cron/learning-identity",
+      "schedule": "0 2 2 * *"
+    },
+    {
+      "path": "/api/cron/parent-report",
+      "schedule": "0 8 3 * *"
+    },
+    {
+      "path": "/api/cron/wwc-expiry-check",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/streak-check",
+      "schedule": "1 0 * * *"
+    },
+    {
+      "path": "/api/cron/publish-reviews",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/tutor-prompt",
+      "schedule": "0 9 * * *"
+    }
+  ]
+}

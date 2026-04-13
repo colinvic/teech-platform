@@ -1,0 +1,57 @@
+import { redirect } from 'next/navigation'
+import { createServerClient } from '@/lib/supabase'
+import Link from 'next/link'
+import { BoldToggle } from '@/components/accessibility/BoldToggle'
+import { IconUsers, IconSettings } from '@/components/icons'
+
+export default async function ParentLayout({ children }: { children: React.ReactNode }) {
+  const supabase = await createServerClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('preferred_name, role')
+    .eq('user_id', user.id)
+    .single<{ preferred_name: string | null; role: string }>()
+
+  if (!profile || profile.role !== 'parent') redirect('/login')
+
+  return (
+    <div className="min-h-screen bg-deep flex flex-col">
+      <header className="sticky top-0 z-50 bg-deep/95 backdrop-blur border-b border-teal/10">
+        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
+          <Link href="/parent/dashboard" className="flex items-center gap-0.5">
+            <span className="font-display text-xl font-black text-white">te</span>
+            <span className="font-display text-xl font-black text-teal">e</span>
+            <span className="font-display text-xl font-black text-white">ch</span>
+            <span className="font-display text-xl font-black text-teal/40">.au</span>
+          </Link>
+          <span className="text-xs text-teech-muted">{profile.preferred_name ?? ''}</span>
+        </div>
+      </header>
+
+      <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-6 pb-24">
+        {children}
+      </main>
+
+      <BoldToggle />
+
+      <nav className="fixed bottom-0 left-0 right-0 bg-surface/95 border-t border-teal/10 pb-safe z-40 backdrop-blur">
+        <div className="max-w-2xl mx-auto px-4">
+          <div className="flex items-center justify-around py-2">
+            {[
+              { href: '/parent/dashboard', Icon: IconUsers,    label: 'Children' },
+              { href: '/parent/settings',  Icon: IconSettings, label: 'Settings'  },
+            ].map(({ href, Icon, label }) => (
+              <Link key={href} href={href} className="flex flex-col items-center gap-1 px-6 py-1.5 rounded-xl text-teech-muted hover:text-teal transition-colors group">
+                <Icon className="w-5 h-5 group-hover:text-teal transition-colors" />
+                <span className="text-[10px] font-bold uppercase tracking-wide">{label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
+    </div>
+  )
+}

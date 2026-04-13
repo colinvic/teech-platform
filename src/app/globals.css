@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* teech.au brand — education-forward, growth-driven */
+  --deep:        #090E1A;
+  --surface:     #111827;
+  --raised:      #1A2640;
+  --teal:        #14B8A6;
+  --teal-light:  #2DD4BF;
+  --teal-pale:   #CCFBF1;
+  --lime:        #A3E635;
+  --lime-light:  #BEF264;
+  --amber:       #FBBF24;
+  --amber-light: #FCD34D;
+  --white:       #F0F9FF;
+  --muted:       #64748B;
+  --border:      rgba(20,184,166,0.18);
+  --border-dim:  rgba(20,184,166,0.09);
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--deep);
+    color: var(--white);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-teal/20 rounded-2xl p-6;
+  }
+  .card-accent {
+    @apply card relative overflow-hidden;
+    border-top: 3px solid var(--teal);
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-teal text-deep font-bold text-sm
+           px-6 py-3 rounded-xl
+           transition-all duration-200
+           hover:bg-teal-light active:scale-[0.98]
+           disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           bg-transparent border border-teal/25
+           text-white font-medium text-sm
+           px-6 py-3 rounded-xl
+           transition-colors duration-200
+           hover:border-teal hover:text-teal
+           disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .label {
+    @apply text-xs font-bold uppercase tracking-widest text-teal;
+  }
+  .input {
+    @apply w-full
+           bg-deep border border-teal/20
+           text-white placeholder-slate-600
+           rounded-xl px-4 py-3 text-sm
+           transition-colors duration-200
+           focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal;
+  }
+  .progress-bar {
+    @apply h-2 rounded-full bg-deep overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-500 ease-out;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+  }
+}
+
+@layer utilities {
+  .text-gradient-teal {
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-lime {
+    background: linear-gradient(135deg, var(--lime), var(--lime-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom, 1rem); }
+  .pt-safe { padding-top: env(safe-area-inset-top, 0); }
+  /* Glow effects for badges */
+  .glow-teal  { box-shadow: 0 0 24px rgba(20,184,166,0.25); }
+  .glow-lime  { box-shadow: 0 0 24px rgba(163,230,53,0.25); }
+  .glow-amber { box-shadow: 0 0 24px rgba(251,191,36,0.25); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BOLD MODE — accessibility layer
+   Applied when <body> has class 'teech-bold-mode'
+   Activated by the spectacles toggle, bottom-left of every screen.
+   Persisted to localStorage. No flash on reload (class set before paint).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.teech-bold-mode {
+  /* Base text: heavier weight, slightly larger, more open tracking */
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* All paragraph-level text gets a floor weight */
+.teech-bold-mode p,
+.teech-bold-mode span,
+.teech-bold-mode li,
+.teech-bold-mode label,
+.teech-bold-mode td,
+.teech-bold-mode th {
+  font-weight: 600;
+}
+
+/* Headings get maximum weight */
+.teech-bold-mode h1,
+.teech-bold-mode h2,
+.teech-bold-mode h3,
+.teech-bold-mode h4 {
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+/* Links stay readable */
+.teech-bold-mode a {
+  font-weight: 700;
+}
+
+/* Buttons already bold — push to black */
+.teech-bold-mode button {
+  font-weight: 800;
+}
+
+/* Scale up font sizes one step via CSS custom property override */
+.teech-bold-mode {
+  font-size: 106.25%; /* ~17px base from 16px */
+}
+
+/* Increase line height for better readability */
+.teech-bold-mode p,
+.teech-bold-mode li,
+.teech-bold-mode label {
+  line-height: 1.85;
+}
+
+/* Increase border contrast — makes cards, inputs more visible */
+.teech-bold-mode .border {
+  border-color: rgba(20, 184, 166, 0.35);
+}
+
+.teech-bold-mode input,
+.teech-bold-mode select,
+.teech-bold-mode textarea {
+  border-color: rgba(20, 184, 166, 0.4);
+  font-weight: 600;
+}
+
+/* Muted text: boost contrast in bold mode */
+.teech-bold-mode .text-teech-muted {
+  color: #94A3B8; /* one step lighter than the default muted */
+}
+
+/* Progress bars: slightly thicker */
+.teech-bold-mode .h-2 {
+  height: 3px;
+}
+
+/* Status pills: bolder labels */
+.teech-bold-mode .rounded-full span {
+  font-weight: 700;
+}
+
+/* Nav labels */
+.teech-bold-mode nav span {
+  font-weight: 700;
+}
+
+/* Small detail text: prevent getting too small with bold */
+.teech-bold-mode .text-\[10px\],
+.teech-bold-mode .text-\[9px\] {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.teech-bold-mode .text-xs {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Mono text (DM Mono) stays legible */
+.teech-bold-mode .font-mono,
+.teech-bold-mode code {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
