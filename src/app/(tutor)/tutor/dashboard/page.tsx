@@ -11,9 +11,9 @@ async function getTutorData() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('id, preferred_name')
-    .eq('user_id', user.id)
-    .single<{ id: string; preferred_name: string | null }>()
+    .select('id, full_name')
+    .eq('id', user.id)
+    .single<{ id: string; full_name: string | null }>()
 
   if (!profile) return null
 
@@ -37,7 +37,7 @@ async function getTutorData() {
     .select(`
       id, scheduled_at, duration_minutes, status,
       section:curriculum_sections(name),
-      student:profiles!student_id(preferred_name)
+      student:profiles!student_id(full_name)
     `)
     .eq('tutor_id', profile.id)
     .eq('status', 'confirmed')
@@ -50,9 +50,9 @@ async function getTutorData() {
 
 const STATUS_LABELS: Record<string, string> = {
   pending:      'Application pending review',
-  under_review: 'Under review — WWC verification in progress',
-  active:       'Active — accepting bookings',
-  suspended:    'Suspended — action required',
+  under_review: 'Under review â WWC verification in progress',
+  active:       'Active â accepting bookings',
+  suspended:    'Suspended â action required',
   terminated:   'Account terminated',
 }
 
@@ -61,7 +61,7 @@ export default async function TutorDashboardPage() {
   if (!data) redirect('/login')
 
   const { profile, tutorProfile, upcomingSessions } = data
-  const name = profile.preferred_name ?? 'there'
+  const name = profile.full_name ?? 'there'
   const status = tutorProfile?.status ?? 'pending'
   const isActive = status === 'active'
 
@@ -135,7 +135,7 @@ export default async function TutorDashboardPage() {
         <div className="grid grid-cols-3 gap-3">
           {[
             { label: 'Sessions',  value: tutorProfile?.sessions_completed ?? 0, Icon: IconBadge   },
-            { label: 'Rating',    value: tutorProfile?.rating?.toFixed(1) ?? '—', Icon: IconVerified },
+            { label: 'Rating',    value: tutorProfile?.rating?.toFixed(1) ?? 'â', Icon: IconVerified },
             { label: 'Response',  value: '< 2h',                                  Icon: IconClock    },
           ].map(({ label, value, Icon }) => (
             <div key={label} className="bg-surface border border-teal/12 rounded-xl p-3 text-center">
@@ -174,7 +174,7 @@ export default async function TutorDashboardPage() {
                   duration_minutes: number
                   status: string
                   section: { name: string } | null
-                  student: { preferred_name: string | null } | null
+                  student: { full_name: string | null } | null
                 }
                 const when = new Date(s.scheduled_at).toLocaleDateString('en-AU', {
                   weekday: 'short', day: 'numeric', month: 'short',
@@ -184,7 +184,7 @@ export default async function TutorDashboardPage() {
                   <div key={s.id} className="bg-surface border border-teal/12 rounded-xl p-4 flex items-center justify-between">
                     <div>
                       <p className="text-sm font-semibold text-white">{s.section?.name ?? 'Section'}</p>
-                      <p className="text-xs text-teech-muted mt-0.5">{when} · {s.duration_minutes} min</p>
+                      <p className="text-xs text-teech-muted mt-0.5">{when} Â· {s.duration_minutes} min</p>
                     </div>
                     <StatusPill variant="pending" label="Confirmed" />
                   </div>
