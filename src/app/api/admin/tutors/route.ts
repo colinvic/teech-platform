@@ -17,7 +17,7 @@ export type TutorAdminRow = {
 }
 
 async function requireAdmin(req: NextRequest) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   const { data: { user }, error } = await supabase.auth.getUser()
   if (error || !user) return null
   const { data: p } = await supabase.from('profiles').select('role').eq('id', user.id).single()
