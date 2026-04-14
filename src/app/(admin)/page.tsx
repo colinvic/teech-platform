@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase'
 import Link from 'next/link'
-import {
 import { Logo } from '@/components/Logo'
+import {
   IconGraduate, IconTutor, IconEdit,
   IconFlag, IconContent, IconAudit,
   IconBadge, IconCheckCircle,
@@ -15,9 +15,9 @@ async function getAdminStats() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('role, preferred_name')
-    .eq('user_id', user.id)
-    .single<{ role: string; preferred_name: string | null }>()
+    .select('role, full_name')
+    .eq('id', user.id)
+    .single<{ role: string; full_name: string | null }>()
 
   if (profile?.role !== 'admin') return null
 
@@ -39,7 +39,7 @@ async function getAdminStats() {
     .limit(10)
 
   return {
-    name: profile.preferred_name,
+    name: profile.full_name,
     stats: {
       students:         students.count ?? 0,
       activeTutors:     tutors.count ?? 0,
@@ -57,7 +57,7 @@ export default async function AdminDashboardPage() {
 
   const { name, stats, questionsToReview } = data
 
-  // Stat cards — pure CSS icons, no emojis
+  // Stat cards â pure CSS icons, no emojis
   const statCards = [
     { label: 'Students',      value: stats.students,         Icon: IconGraduate,  alert: false },
     { label: 'Active tutors', value: stats.activeTutors,     Icon: IconTutor,     alert: false },
@@ -82,7 +82,7 @@ export default async function AdminDashboardPage() {
           <Link href="/" className="flex items-center gap-0 mb-1">
             <Logo variant="nav" className="h-8 w-auto" />
           </Link>
-          <p className="text-xs text-teech-muted">Admin · {name}</p>
+          <p className="text-xs text-teech-muted">Admin Â· {name}</p>
         </div>
         <span className="text-xs bg-red-500/15 text-red-400 border border-red-500/20 px-3 py-1 rounded-full font-bold tracking-widest uppercase">
           Admin
