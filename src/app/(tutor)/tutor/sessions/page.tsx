@@ -10,7 +10,7 @@ async function getTutorSessions() {
 
   const { data: profile } = await supabase
     .from('profiles').select('id')
-    .eq('user_id', user.id).single<{ id: string }>()
+    .eq('id', user.id).single<{ id: string }>()
 
   if (!profile) return null
 
@@ -18,7 +18,7 @@ async function getTutorSessions() {
     .from('tutor_sessions')
     .select(`id, scheduled_at, duration_minutes, status,
       section:curriculum_sections(name),
-      student:profiles!student_id(preferred_name)`)
+      student:profiles!student_id(full_name)`)
     .eq('tutor_id', profile.id)
     .in('status', ['confirmed', 'in_progress'])
     .gte('scheduled_at', new Date().toISOString())
@@ -28,7 +28,7 @@ async function getTutorSessions() {
     .from('tutor_sessions')
     .select(`id, scheduled_at, duration_minutes, status, post_session_pass,
       section:curriculum_sections(name),
-      student:profiles!student_id(preferred_name),
+      student:profiles!student_id(full_name),
       review:session_reviews(rating)`)
     .eq('tutor_id', profile.id)
     .eq('status', 'completed')
@@ -72,7 +72,7 @@ export default async function TutorSessionsPage() {
             {upcoming.map(s => {
               const session = s as {
                 id: string; scheduled_at: string; duration_minutes: number; status: string
-                section: { name: string } | null; student: { preferred_name: string | null } | null
+                section: { name: string } | null; student: { full_name: string | null } | null
               }
               return (
                 <div key={session.id} className="bg-surface border border-teal/15 rounded-xl p-4">
@@ -80,7 +80,7 @@ export default async function TutorSessionsPage() {
                     <div>
                       <p className="text-sm font-semibold text-white">{session.section?.name}</p>
                       <p className="text-xs text-teech-muted mt-0.5">
-                        {session.student?.preferred_name ?? 'Student'} · {session.duration_minutes} min
+                        {session.student?.full_name ?? 'Student'} Â· {session.duration_minutes} min
                       </p>
                     </div>
                     <StatusPill variant="pending" label="Confirmed" />
@@ -107,7 +107,7 @@ export default async function TutorSessionsPage() {
               const session = s as {
                 id: string; scheduled_at: string; duration_minutes: number; status: string
                 post_session_pass: boolean | null
-                section: { name: string } | null; student: { preferred_name: string | null } | null
+                section: { name: string } | null; student: { full_name: string | null } | null
                 review: Array<{ rating: number }> | null
               }
               const rating = session.review?.[0]?.rating
