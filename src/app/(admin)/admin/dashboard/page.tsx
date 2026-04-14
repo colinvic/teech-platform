@@ -56,7 +56,7 @@ export default async function AdminDashboardPage() {
 
   const { name, stats, questionsToReview } = data
 
-  // Stat cards â pure CSS icons, no emojis
+  // Stat cards Ã¢ÂÂ pure CSS icons, no emojis
   const statCards = [
     { label: 'Students',      value: stats.students,         Icon: IconGraduate,  alert: false },
     { label: 'Active tutors', value: stats.activeTutors,     Icon: IconTutor,     alert: false },
@@ -84,7 +84,7 @@ export default async function AdminDashboardPage() {
             <span className="font-display text-2xl font-black text-white">ch</span>
             <span className="font-display text-2xl font-black text-teal/40">.au</span>
           </Link>
-          <p className="text-xs text-teech-muted">Admin Â· {name}</p>
+          <p className="text-xs text-teech-muted">Admin ÃÂ· {name}</p>
         </div>
         <span className="text-xs bg-red-500/15 text-red-400 border border-red-500/20 px-3 py-1 rounded-full font-bold tracking-widest uppercase">
           Admin
@@ -136,7 +136,7 @@ export default async function AdminDashboardPage() {
                 id: string
                 question_text: string
                 difficulty: number
-                section: { name: string } | null
+                section: { name: string }[] | null
               }
               return (
                 <div
@@ -147,7 +147,7 @@ export default async function AdminDashboardPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2 flex-wrap">
                         <span className="text-xs text-teal bg-teal/10 border border-teal/15 px-2 py-0.5 rounded font-mono truncate max-w-[140px]">
-                          {typedQ.section?.name ?? 'Unknown section'}
+                          {typedQ.section?.[0]?.name ?? '' ?? 'Unknown section'}
                         </span>
                         <span className="text-xs text-teech-muted">
                           Difficulty {typedQ.difficulty}/3
