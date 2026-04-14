@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     .select(`
       id, year_level, streak_current, total_sections_passed,
       parent_id,
-      profile:profiles!id(preferred_name)
+      profile:profiles!id(full_name)
     `)
     .not('parent_id', 'is', null)
 
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       streak_current: number
       total_sections_passed: number
       parent_id: string
-      profile: { preferred_name: string | null } | null
+      profile: { full_name: string | null } | null
     }
 
     try {
@@ -51,9 +51,9 @@ export async function GET(request: NextRequest) {
       // Get parent auth user for email address
       const { data: parentBaseProfile } = await supabase
         .from('profiles')
-        .select('user_id, preferred_name, full_name')
+        .select('user_id, full_name, full_name')
         .eq('id', s.parent_id)
-        .single<{ user_id: string; preferred_name: string | null; full_name: string }>()
+        .single<{ user_id: string; full_name: string | null; full_name: string }>()
 
       if (!parentBaseProfile) { skipped++; continue }
 
@@ -85,17 +85,17 @@ export async function GET(request: NextRequest) {
       let recommendedAction = ''
       if (cache.weakest_strand) {
         const strand = cache.weakest_strand.replace(/_/g, ' ')
-        recommendedAction = `Focus on ${strand} — this is the strand with the most incomplete sections. Encourage ${s.profile?.preferred_name ?? 'your student'} to try one section this week.`
+        recommendedAction = `Focus on ${strand} â this is the strand with the most incomplete sections. Encourage ${s.profile?.full_name ?? 'your student'} to try one section this week.`
       } else if (cache.sections_passed_this_month === 0) {
-        recommendedAction = `${s.profile?.preferred_name ?? 'Your student'} has not passed a section this month yet. Encourage them to log in and attempt the next available section — even 15 minutes helps.`
+        recommendedAction = `${s.profile?.full_name ?? 'Your student'} has not passed a section this month yet. Encourage them to log in and attempt the next available section â even 15 minutes helps.`
       } else if (s.streak_current === 0) {
-        recommendedAction = `The study streak has broken. Help ${s.profile?.preferred_name ?? 'your student'} restart it — even one short session today resets the momentum.`
+        recommendedAction = `The study streak has broken. Help ${s.profile?.full_name ?? 'your student'} restart it â even one short session today resets the momentum.`
       } else {
-        recommendedAction = `${s.profile?.preferred_name ?? 'Your student'} is making solid progress. Keep the ${s.streak_current}-day streak going — consistency is the strongest predictor of long-term results.`
+        recommendedAction = `${s.profile?.full_name ?? 'Your student'} is making solid progress. Keep the ${s.streak_current}-day streak going â consistency is the strongest predictor of long-term results.`
       }
 
-      const studentName = s.profile?.preferred_name ?? 'Your student'
-      const parentName = parentBaseProfile.preferred_name ?? parentBaseProfile.full_name ?? 'there'
+      const studentName = s.profile?.full_name ?? 'Your student'
+      const parentName = parentBaseProfile.full_name ?? parentBaseProfile.full_name ?? 'there'
 
       await sendMonthlyParentReport({
         parentEmail,
@@ -110,7 +110,7 @@ export async function GET(request: NextRequest) {
         recommendedAction,
       })
 
-      // Log for compliance — record that monthly report was sent
+      // Log for compliance â record that monthly report was sent
       await supabase.from('compliance_audit_log').insert({
         actor_id: null,
         actor_role: 'system',
