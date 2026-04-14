@@ -12,9 +12,9 @@ async function getStudentData() {
 
   const { data } = await supabase
     .from('profiles')
-    .select('preferred_name, role')
-    .eq('user_id', user.id)
-    .single<{ preferred_name: string | null; role: string }>()
+    .select('full_name, role')
+    .eq('id', user.id)
+    .single<{ full_name: string | null; role: string }>()
 
   return data
 }
@@ -24,7 +24,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
   if (!student) redirect('/login')
   if (student.role !== 'student') redirect('/login')
 
-  const name = student.preferred_name ?? 'there'
+  const name = student.full_name ?? 'there'
 
   return (
     <div className="min-h-screen bg-deep flex flex-col">
