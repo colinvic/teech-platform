@@ -25,7 +25,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     const { data: profile } = await supabase
       .from('profiles')
       .select('id')
-      .eq('user_id', user.id)
+      .eq('id', user.id)
       .single<{ id: string }>()
 
     if (!profile) return NextResponse.json({ success: false, error: 'Profile not found', code: 'NOT_FOUND' }, { status: 404 })
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     if (progress) {
       // Max attempts check
       if (progress.assessment_attempts >= ASSESSMENT.MAX_ATTEMPTS_BEFORE_PARENT_NOTIFY) {
-        // Still allow — but a notification will be triggered separately
+        // Still allow â but a notification will be triggered separately
       }
 
       // Cooldown check: 24 hours after last activity
