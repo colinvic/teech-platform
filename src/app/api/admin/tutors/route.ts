@@ -3,6 +3,19 @@ import { z } from 'zod'
 import { createServerClient, createAdminClient } from '@/lib/supabase'
 import { logger } from '@/lib/logger'
 
+export type TutorAdminRow = {
+  id: string
+  profile_id: string
+  status: string
+  wwc_verified: boolean
+  kyc_verified: boolean
+  stripe_onboarding_complete: boolean
+  hourly_rate_cents: number | null
+  session_count: number
+  rating_average: number | null
+  profiles: { full_name: string; email: string } | null
+}
+
 async function requireAdmin(req: NextRequest) {
   const supabase = createServerClient()
   const { data: { user }, error } = await supabase.auth.getUser()
