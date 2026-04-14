@@ -6,8 +6,8 @@ import { NextResponse, type NextRequest } from 'next/server'
  *
  * Responsibilities:
  * 1. Refresh Supabase auth session on every request
- * 2. Protect authenticated routes — redirect to /login if no session
- * 3. Protect admin routes — redirect if not admin role
+ * 2. Protect authenticated routes â redirect to /login if no session
+ * 3. Protect admin routes â redirect if not admin role
  * 4. Block tutor routes until legal gate is lifted (MARKETPLACE_LIVE flag)
  */
 
@@ -53,7 +53,7 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Refresh session — MUST be called before any auth checks
+  // Refresh session â MUST be called before any auth checks
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -74,12 +74,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  // Admin route protection — check role from profile
+  // Admin route protection â check role from profile
   if (ADMIN_ROUTES.some((route) => path.startsWith(route)) && user) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('user_id', user.id)
+      .eq('id', user.id)
       .single()
 
     if (!profile || profile['role'] !== 'admin') {
