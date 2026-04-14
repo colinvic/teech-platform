@@ -10,9 +10,9 @@ async function getReportData() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('id, preferred_name')
-    .eq('user_id', user.id)
-    .single<{ id: string; preferred_name: string | null }>()
+    .select('id, full_name')
+    .eq('id', user.id)
+    .single<{ id: string; full_name: string | null }>()
 
   if (!profile) return null
 
@@ -87,7 +87,7 @@ export default async function ReportPage() {
   if (!data) redirect('/login')
 
   const { profile, studentProfile, cache, identity, badges, strandProgress } = data
-  const name = profile.preferred_name ?? 'there'
+  const name = profile.full_name ?? 'there'
   const consistency = getConsistencyLabel(cache?.consistency_score ?? 0)
   const now = new Date()
   const monthName = now.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })
@@ -213,7 +213,7 @@ export default async function ReportPage() {
           <div className="flex items-center justify-between mb-3">
             <p className="label">Recent badges</p>
             <Link href="/badges" className="text-xs text-teal hover:text-teal-light transition-colors">
-              View all →
+              View all â
             </Link>
           </div>
           <div className="grid grid-cols-3 gap-2">
@@ -246,7 +246,7 @@ export default async function ReportPage() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="w-7 h-7 text-teal/30"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
         </div>
           <p className="text-teech-muted text-sm">Your report card fills up as you learn.</p>
-          <Link href="/dashboard" className="btn-primary inline-flex">Start a section →</Link>
+          <Link href="/dashboard" className="btn-primary inline-flex">Start a section â</Link>
         </div>
       )}
     </div>
