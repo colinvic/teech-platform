@@ -1,13 +1,13 @@
 /**
- * teech-platform — Platform Types
+ * teech-platform â Platform Types
  * Single source of truth for all TypeScript types.
  * Never use `any`. Never cast unsafely.
- * All database joins use intersection types — never cast as `any`.
+ * All database joins use intersection types â never cast as `any`.
  */
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // ENUMS & UNION TYPES
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export type UserRole = 'student' | 'parent' | 'tutor' | 'admin'
 
@@ -65,27 +65,27 @@ export type AuState =
 
 export type Pronoun = 'they_them' | 'she_her' | 'he_him' | 'prefer_not_to_say'
 
-// Age tiers — controls AI tone in report card and platform copy
+// Age tiers â controls AI tone in report card and platform copy
 export type AgeTier =
-  | 'foundation_2'    // Foundation–Year 2: warm, encouraging, emoji-rich
-  | 'year_3_6'        // Year 3–6: friendly, clear, motivating
-  | 'year_7_8'        // Year 7–8: peer-like, honest, direct
-  | 'year_9_10'       // Year 9–10: analytical, respectful, real
-  | 'senior_11_12'    // Year 11–12: coach-level, strategic
+  | 'foundation_2'    // FoundationâYear 2: warm, encouraging, emoji-rich
+  | 'year_3_6'        // Year 3â6: friendly, clear, motivating
+  | 'year_7_8'        // Year 7â8: peer-like, honest, direct
+  | 'year_9_10'       // Year 9â10: analytical, respectful, real
+  | 'senior_11_12'    // Year 11â12: coach-level, strategic
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // USER PROFILES
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface Profile {
   id: string
   user_id: string
   role: UserRole
   full_name: string
-  preferred_name: string | null
+  full_name: string | null
   pronoun: Pronoun
   avatar_key: string | null        // gender-neutral avatar identifier
-  date_of_birth: string | null     // ISO date — used to calculate age tier
+  date_of_birth: string | null     // ISO date â used to calculate age tier
   state: AuState | null
   timezone: string                  // e.g. 'Australia/Perth'
   created_at: string
@@ -124,7 +124,7 @@ export interface TutorProfile extends Profile {
   qualifications: TutorQualification[]
   subjects: LearningArea[]
   year_levels: YearLevel[]
-  acara_competency_scores: Record<string, number>  // sectionId → score
+  acara_competency_scores: Record<string, number>  // sectionId â score
   hourly_rate: number
   stripe_account_id: string | null
   rating: number | null
@@ -141,9 +141,9 @@ export interface TutorQualification {
   verified: boolean
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // CURRICULUM
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface CurriculumSubject {
   id: string
@@ -178,14 +178,14 @@ export interface SectionCard {
   title: string
   content: string                  // Markdown or HTML
   media_url: string | null
-  alt_text: string | null          // accessibility — always required for images
+  alt_text: string | null          // accessibility â always required for images
   order_in_section: number
   reading_time_seconds: number
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // STUDENT PROGRESS
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface StudentSectionProgress {
   id: string
@@ -216,9 +216,9 @@ export interface SectionFailFlag {
   resolved_via: 'session' | 'self' | 'dismissed' | null
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // ASSESSMENT ENGINE
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface AssessmentSession {
   id: string
@@ -235,8 +235,8 @@ export interface AssessmentSession {
   ip_address: string
   started_at: string
   completed_at: string | null
-  time_per_question_ms: number[]   // array — one entry per question
-  anomaly_score: number            // 0–100; >70 = flagged
+  time_per_question_ms: number[]   // array â one entry per question
+  anomaly_score: number            // 0â100; >70 = flagged
   flagged: boolean
   flag_reason: string | null
 }
@@ -271,9 +271,9 @@ export interface AssessmentResponse {
   answered_at: string
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // BADGES
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface Badge {
   id: string
@@ -292,7 +292,7 @@ export interface Badge {
 
 export interface BadgeVerificationData {
   badge_id: string
-  student_display_name: string     // preferred_name only — no surname
+  student_display_name: string     // full_name only â no surname
   section_name: string
   subject_name: string
   year_level: YearLevel
@@ -302,14 +302,14 @@ export interface BadgeVerificationData {
   platform: 'teech.au'
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // REPORT CARD
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface LearningIdentity {
   id: string
   student_id: string
-  period_month: number             // 1–12
+  period_month: number             // 1â12
   period_year: number
   generated_text: string           // Claude-generated, gender-neutral
   data_snapshot: LearningIdentityData
@@ -322,7 +322,7 @@ export interface LearningIdentityData {
   strongest_strand: string | null
   weakest_strand: string | null
   avg_attempts_to_pass: number
-  consistency_score: number        // 0–100
+  consistency_score: number        // 0â100
   peak_performance_day: string | null
   peak_performance_hour: number | null
   streak_current: number
@@ -330,9 +330,9 @@ export interface LearningIdentityData {
   days_since_last_session: number
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // TUTOR MARKETPLACE
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface TutorAvailability {
   id: string
@@ -355,7 +355,7 @@ export interface TutorSession {
   scheduled_at: string
   duration_minutes: number
   session_url: string | null
-  recording_consent: boolean       // false by default — explicit opt-in only
+  recording_consent: boolean       // false by default â explicit opt-in only
   status: SessionStatus
   stripe_payment_intent_id: string | null
   amount_total: number             // in cents
@@ -404,9 +404,9 @@ export interface PayoutRecord {
   financial_year: string           // e.g. '2025-26'
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // COMPLIANCE & AUDIT
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface ComplianceAuditLog {
   id: string
@@ -433,9 +433,9 @@ export interface WwcVerification {
   next_check_due: string           // 60 days before expiry
 }
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // API RESPONSE TYPES
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface ApiSuccess<T> {
   success: true
@@ -450,11 +450,11 @@ export interface ApiError {
 
 export type ApiResponse<T> = ApiSuccess<T> | ApiError
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 // UTILITY TYPES
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
-// Use intersection types for database joins — never cast as `any`
+// Use intersection types for database joins â never cast as `any`
 export type SectionWithSubject = CurriculumSection & {
   subject: CurriculumSubject
 }
@@ -464,8 +464,8 @@ export type StudentProgressWithSection = StudentSectionProgress & {
 }
 
 export type TutorSessionWithProfiles = TutorSession & {
-  tutor: Pick<TutorProfile, 'id' | 'full_name' | 'preferred_name' | 'rating' | 'sessions_completed'>
-  student: Pick<StudentProfile, 'id' | 'preferred_name' | 'year_level'>
+  tutor: Pick<TutorProfile, 'id' | 'full_name' | 'full_name' | 'rating' | 'sessions_completed'>
+  student: Pick<StudentProfile, 'id' | 'full_name' | 'year_level'>
   section: Pick<CurriculumSection, 'id' | 'name' | 'strand'>
 }
 
