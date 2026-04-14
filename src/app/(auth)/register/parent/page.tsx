@@ -29,7 +29,7 @@ export default function ParentRegisterPage() {
       options: {
         shouldCreateUser: true,
         data: {
-          preferred_name: form.name.trim(),
+          full_name: form.name.trim(),
           role: 'parent',
         },
       },
@@ -77,7 +77,7 @@ export default function ParentRegisterPage() {
             error={error ?? undefined}
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Create account →
+            Create account â
           </Button>
         </form>
       </div>
@@ -114,7 +114,7 @@ export default function ParentRegisterPage() {
         )}
 
         <Button type="submit" loading={loading} className="w-full" size="lg">
-          Create parent account →
+          Create parent account â
         </Button>
       </form>
 
