@@ -10,7 +10,7 @@ const schema = z.object({
   questionIndex: z.number().int().min(0).max(20),
 })
 
-// What the client receives — question ID is never exposed
+// What the client receives â question ID is never exposed
 interface ClientQuestion {
   index: number
   questionText: string
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     const { data: profile } = await supabase
       .from('profiles')
       .select('id')
-      .eq('user_id', user.id)
+      .eq('id', user.id)
       .single<{ id: string }>()
 
     if (!profile || profile.id !== session.student_id) {
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       await supabase.rpc('increment_anomaly_score', { session_id: sessionId, increment: 30 })
     }
 
-    // Fetch active questions for this section — ordered deterministically per session
+    // Fetch active questions for this section â ordered deterministically per session
     // Use session ID as a seed for consistent ordering within the session
     const { data: questions } = await supabase
       .from('assessment_questions')
@@ -118,7 +118,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       Math.floor((new Date(session.token_expires_at).getTime() - Date.now()) / 1000)
     )
 
-    // NOTE: question.id is NOT returned to the client — submitted answers use index
+    // NOTE: question.id is NOT returned to the client â submitted answers use index
     const clientQuestion: ClientQuestion = {
       index: questionIndex,
       questionText: question.question_text,
