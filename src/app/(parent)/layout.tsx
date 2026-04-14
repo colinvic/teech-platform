@@ -12,9 +12,9 @@ export default async function ParentLayout({ children }: { children: React.React
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('preferred_name, role')
-    .eq('user_id', user.id)
-    .single<{ preferred_name: string | null; role: string }>()
+    .select('full_name, role')
+    .eq('id', user.id)
+    .single<{ full_name: string | null; role: string }>()
 
   if (!profile || profile.role !== 'parent') redirect('/login')
 
@@ -25,7 +25,7 @@ export default async function ParentLayout({ children }: { children: React.React
           <Link href="/parent/parent/dashboard" className="flex items-center gap-0.5">
             <Logo variant="nav" className="h-7 w-auto" />
           </Link>
-          <span className="text-xs text-teech-muted">{profile.preferred_name ?? ''}</span>
+          <span className="text-xs text-teech-muted">{profile.full_name ?? ''}</span>
         </div>
       </header>
 
