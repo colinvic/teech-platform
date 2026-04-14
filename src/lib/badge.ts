@@ -1,12 +1,12 @@
 /**
- * teech-platform — Badge Signing & Verification
+ * teech-platform â Badge Signing & Verification
  *
  * Badges are cryptographically signed using HMAC-SHA256.
  * Signature = HMAC-SHA256(badge_id|student_id|section_id|issued_at_unix, BADGE_SIGNING_SECRET)
  *
  * Badges are stored server-side only.
  * Students receive a verification URL, not a file.
- * Verification is public — no auth required.
+ * Verification is public â no auth required.
  */
 
 import { createHmac } from 'crypto'
@@ -14,7 +14,7 @@ import { PLATFORM } from './constants'
 
 const SECRET = process.env['BADGE_SIGNING_SECRET']
 
-// ── Signing ───────────────────────────────────────────────────────────────────
+// ââ Signing âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface BadgeSigningInput {
   badgeId: string
@@ -24,7 +24,7 @@ export interface BadgeSigningInput {
 }
 
 /**
- * Sign a badge. Call at badge issuance — store the returned signature.
+ * Sign a badge. Call at badge issuance â store the returned signature.
  */
 export function signBadge(input: BadgeSigningInput): string {
   if (!SECRET) {
@@ -66,7 +66,7 @@ export function verifyBadgeSignature(
   return mismatch === 0
 }
 
-// ── Badge rarity calculation ──────────────────────────────────────────────────
+// ââ Badge rarity calculation ââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 import type { BadgeRarity } from '@/types/platform'
 import { ASSESSMENT } from './constants'
@@ -84,24 +84,24 @@ export function calculateBadgeRarity(params: {
   // First attempt pass
   if (params.attemptNumber === 1) return 'first_pass'
 
-  // Fast pass — completed in under 50% of estimated time
+  // Fast pass â completed in under 50% of estimated time
   if (params.durationSeconds < params.estimatedDurationSeconds * 0.5) return 'fast_pass'
 
-  // Streak badge — on a streak of 7+ days
+  // Streak badge â on a streak of 7+ days
   if (params.currentStreak >= 7) return 'streak'
 
   return 'standard'
 }
 
-// ── Verification URL ──────────────────────────────────────────────────────────
+// ââ Verification URL ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function getBadgeVerificationUrl(badgeId: string): string {
   const baseUrl = process.env['NEXT_PUBLIC_APP_URL'] ?? `https://teech.au`
   return `${baseUrl}/verify/badge/${badgeId}`
 }
 
-// ── Badge metadata for public display ────────────────────────────────────────
-// Only the minimum needed for public verification — no student PII
+// ââ Badge metadata for public display ââââââââââââââââââââââââââââââââââââââââ
+// Only the minimum needed for public verification â no student PII
 
 export interface PublicBadgeData {
   badgeId: string
@@ -113,7 +113,7 @@ export interface PublicBadgeData {
   rarity: BadgeRarity
   platform: string
   isValid: boolean
-  studentDisplayName: string   // preferred_name only — no surname
+  studentDisplayName: string   // full_name only â no surname
 }
 
 export function formatBadgeForPublic(params: {
@@ -137,6 +137,6 @@ export function formatBadgeForPublic(params: {
     rarity: params.rarity,
     platform: PLATFORM.NAME,
     isValid: !params.isRevoked,
-    studentDisplayName: params.preferredName,  // preferred_name only — privacy
+    studentDisplayName: params.preferredName,  // full_name only â privacy
   }
 }
