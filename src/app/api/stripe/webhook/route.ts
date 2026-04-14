@@ -1,93 +1,65 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { logger } from '@/lib/logger'
-import { verifyWebhookSignature, processTutorPayout } from '@/lib/stripe'
+import Stripe from 'stripe'
 import { createAdminClient } from '@/lib/supabase'
-import type Stripe from 'stripe'
+import { logger } from '@/lib/logger'
 
-export async function POST(request: NextRequest) {
-  const body = await request.text()
-  const signature = request.headers.get('stripe-signature')
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-04-10' })
+const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!
 
-  if (!signature) {
-    return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
-  }
-
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const body = await req.text()
+  const sig = req.headers.get('stripe-signature') ?? ''
   let event: Stripe.Event
-  try {
-    event = verifyWebhookSignature(body, signature)
-  } catch (err) {
-    logger.error('stripe-webhook', 'Signature verification failed', { error: String(err) })
-    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
-  }
-
-  const supabase = createAdminClient()
-
+  try { event = stripe.webhooks.constructEvent(body, sig, WEBHOOK_SECRET) }
+  catch (err) { return NextResponse.json({ error: 'Invalid signature' }, { status: 400 }) }
+  const db = createAdminClient()
+  logger.info('webhook'received', { type: event.type, id: event.id })
   try {
     switch (event.type) {
       case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.Checkout.Session
-        const tutorSessionId = session.metadata?.['tutor_session_id']
-        if (!tutorSessionId) break
-
-        // Mark session as confirmed + store payment intent
-        await supabase
-          .from('tutor_sessions')
-          .update({
-            status: 'confirmed',
-            stripe_payment_intent_id: session.payment_intent as string,
-          })
-          .eq('id', tutorSessionId)
-
-        // Audit log
-        await supabase.from('compliance_audit_log').insert({
-          actor_id: null,
-          actor_role: 'system',
-          action: 'payment.confirmed',
-          table_name: 'tutor_sessions',
-          record_id: tutorSessionId,
-          after_data: { payment_intent: session.payment_intent, amount: session.amount_total },
-        })
-        break
-      }
-
-      case 'payment_intent.payment_failed': {
-        const intent = event.data.object as Stripe.PaymentIntent
-        const tutorSessionId = intent.metadata?.['tutor_session_id']
-        if (!tutorSessionId) break
-
-        await supabase
-          .from('tutor_sessions')
-          .update({ status: 'cancelled_parent' })
-          .eq('id', tutorSessionId)
-          .eq('status', 'pending')
-        break
-      }
-
-      case 'account.updated': {
-        // Stripe Connect account verified — activate tutor if all checks pass
-        const account = event.data.object as Stripe.Account
-        if (account.charges_enabled && account.payouts_enabled) {
-          await supabase
-            .from('tutor_profiles')
-            .update({ stripe_account_id: account.id })
-            .eq('stripe_account_id', account.id)
+        const s = event.data.object as Stripe.Checkout.Session
+        const { data: ts } = await db.from('tutor_sessions').select('id,tutor_id').eq('stripe_checkout_session_id', s.id).single()
+        if (ts) {
+          await db.from('tutor_sessions').update({ status: 'confirmed', stripe_payment_intent_id: s.payment_intent as string, updated_at: new Date().toISOString() }).eq('id', ts.id)
+          await db.rpc('increment_tutor_session_count', { p_tutor_id: ts.tutor_id })
+          await db.from('compliance_audit_log').insert({ action: 'stripe.checkout.completed', table_name: 'tutor_sessions', record_id: ts.id, metadata: { stripe_checkout_session_id: s.id } })
         }
         break
       }
-
-      default:
-        // Unhandled event types — log and ignore
-        logger.info('stripe-webhook', 'Unhandled event type — ignoring', { eventType: event.type })
+      case 'checkout.session.expired': {
+        const s = event.data.object as Stripe.Checkout.Session
+        await db.from('tutor_sessions').update({ status: 'cancelled', updated_at: new Date().toISOString() }).eq('stripe_checkout_session_id', s.id).eq('status', 'pending_payment')
+        break
+      }
+      case 'charge.refunded': {
+        const c = event.data.object as Stripe.Charge
+        if (c.payment_intent) await db.from('tutor_sessions').update({ status: 'refunded', updated_at: new Date().toISOString() }).eq('stripe_payment_intent_id', c.payment_intent as string)
+        break
+      }
+      case 'account.updated': {
+        const a = event.data.object as Stripe.Account
+        const ok = a.details_submitted && !(a.requirements?.currently_due?.length)
+        if (a.id) await db.from('tutor_profiles').update({ stripe_onboarding_complete: ok, updated_at: new Date().toISOString() }).eq('stripe_account_id', a.id)
+        break
+      }
+      case 'transfer.created': {
+        const t = event.data.object as Stripe.Transfer
+        await db.from('tutor_payouts').update({ status: 'paid', processed_at: new Date().toISOString() }).eq('stripe_transfer_id', t.id)
+        break
+      }
+      case 'identity.verification_session.verified': {
+        const vs = event.data.object as Stripe.Identity.VerificationSession
+        const tutorId = vs.metadata?.tutor_id
+        if (tutorId) {
+          await db.from('tutor_profiles').update({ kyc_verified: true, stripe_identity_session_id: vs.id, updated_at: new Date().toISOString() }).eq('profile_id', tutorId)
+          await db.from('compliance_audit_log').insert({ actor_id: tutorId, actor_role: 'tutor', action: 'stripe.identity.verified', table_name: 'tutor_profiles', metadata: { stripe_identity_session_id: vs.id } })
+        }
+        break
+      }
+      default: logger.info('stripe.webhook.unhandled', { type: event.type })
     }
-
     return NextResponse.json({ received: true })
   } catch (err) {
-    logger.error('stripe-webhook', 'Event processing failed', { error: String(err) })
-    return NextResponse.json({ error: 'Processing failed' }, { status: 500 })
+    return NextResponse.json({ received: true, warning: 'Handler exception' })
   }
-}
-
-// Stripe requires raw body — disable Next.js body parsing
-export const config = {
-  api: { bodyParser: false },
 }
