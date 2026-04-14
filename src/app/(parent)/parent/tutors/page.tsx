@@ -17,7 +17,7 @@ interface TutorRow {
 }
 
 async function getTutors(subject?: string, yearLevel?: string): Promise<TutorRow[]> {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
 
   let query = supabase
     .from('tutor_profiles')
@@ -44,7 +44,7 @@ async function getTutors(subject?: string, yearLevel?: string): Promise<TutorRow
   return (data as TutorRow[]) ?? []
 }
 
-// ── Star rating display ────────────────────────────────────────
+// ââ Star rating display ââââââââââââââââââââââââââââââââââââââââ
 function StarRating({ value, count }: { value: number | null; count: number }) {
   if (!value) return <span className="text-xs text-neutral-400">No ratings yet</span>
   const full = Math.floor(value)
@@ -62,9 +62,9 @@ function StarRating({ value, count }: { value: number | null; count: number }) {
   )
 }
 
-// ── Tutor card ────────────────────────────────────────────────
+// ââ Tutor card ââââââââââââââââââââââââââââââââââââââââââââââââ
 function TutorCard({ tutor }: { tutor: TutorRow }) {
-  const bio = tutor.bio?.slice(0, 120) + (tutor.bio?.length > 120 ? '…' : '')
+  const bio = tutor.bio?.slice(0, 120) + (tutor.bio?.length > 120 ? 'â¦' : '')
 
   return (
     <Link
@@ -113,13 +113,13 @@ function TutorCard({ tutor }: { tutor: TutorRow }) {
   )
 }
 
-// ── Page ──────────────────────────────────────────────────────
+// ââ Page ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 interface PageProps {
   searchParams: { subject?: string; yearLevel?: string }
 }
 
 export default async function ParentTutorsPage({ searchParams }: PageProps) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
