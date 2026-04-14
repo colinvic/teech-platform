@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('user_id', user.id)
+      .eq('id', user.id)
       .single<{ role: string }>()
 
     if (profile?.role !== 'admin') {
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     const questions = await generateQuestions(section, count, difficulty)
 
-    // Insert as inactive — require human review before going live
+    // Insert as inactive â require human review before going live
     const adminClient = createAdminClient()
     const { data: inserted } = await adminClient
       .from('assessment_questions')
