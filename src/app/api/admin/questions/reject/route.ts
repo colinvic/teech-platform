@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   const { data: profile } = await supabase
     .from('profiles')
     .select('id, role')
-    .eq('user_id', user.id)
+    .eq('id', user.id)
     .single<{ id: string; role: string }>()
 
   if (profile?.role !== 'admin') return NextResponse.redirect(new URL('/login', request.url))
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
   const adminClient = createAdminClient()
 
-  // Soft delete — mark reviewed but not active
+  // Soft delete â mark reviewed but not active
   await adminClient
     .from('assessment_questions')
     .update({ reviewed_by_human: true, is_active: false })
