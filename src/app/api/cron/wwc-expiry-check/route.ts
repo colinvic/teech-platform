@@ -24,12 +24,12 @@ export async function GET(request: NextRequest) {
     .from('wwc_verifications')
     .select(`
       id, tutor_id, state, wwc_number, expiry_date, next_check_due,
-      tutor:profiles!tutor_id(preferred_name, user_id)
+      tutor:profiles!tutor_id(full_name, user_id)
     `)
     .lte('expiry_date', alertCutoff.toISOString().split('T')[0])
     .gte('expiry_date', now.toISOString().split('T')[0])
 
-  // Find already-expired checks — these are critical: suspend tutor immediately
+  // Find already-expired checks â these are critical: suspend tutor immediately
   const { data: expired } = await supabase
     .from('wwc_verifications')
     .select('tutor_id, state, wwc_number, expiry_date')
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
   let alerted = 0
   let suspended = 0
 
-  // Handle expired — suspend tutor profile
+  // Handle expired â suspend tutor profile
   for (const wwc of expired ?? []) {
     const typedWwc = wwc as { tutor_id: string; state: string; wwc_number: string; expiry_date: string }
 
@@ -61,18 +61,18 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    logger.critical('wwc-cron', 'Tutor suspended — WWC expired', { tutorId: typedWwc.tutor_id, state: typedWwc.state, expiredDate: typedWwc.expiry_date })
+    logger.critical('wwc-cron', 'Tutor suspended â WWC expired', { tutorId: typedWwc.tutor_id, state: typedWwc.state, expiredDate: typedWwc.expiry_date })
     suspended++
   }
 
-  // Handle expiring soon — send renewal alert
+  // Handle expiring soon â send renewal alert
   for (const wwc of expiring ?? []) {
     const typedWwc = wwc as {
       id: string
       tutor_id: string
       state: string
       expiry_date: string
-      tutor: { preferred_name: string | null; user_id: string } | null
+      tutor: { full_name: string | null; user_id: string } | null
     }
 
     const daysUntilExpiry = Math.floor(
@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
     if (tutorUser?.user?.email) {
       await sendWWCExpiryAlert({
         tutorEmail:      tutorUser.user.email,
-        tutorName:       typedWwc.tutor?.preferred_name ?? 'Tutor',
+        tutorName:       typedWwc.tutor?.full_name ?? 'Tutor',
         state:           typedWwc.state,
         expiryDate:      typedWwc.expiry_date,
         daysUntilExpiry,
