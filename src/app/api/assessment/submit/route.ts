@@ -65,7 +65,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     const { data: profile } = await supabase
       .from('profiles')
       .select('id')
-      .eq('user_id', user.id)
+      .eq('id', user.id)
       .single<{ id: string }>()
 
     if (!profile || profile.id !== session.student_id) {
@@ -197,7 +197,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       })
     }
 
-    // Issue badge on pass (even flagged sessions get a badge — human review happens in background)
+    // Issue badge on pass (even flagged sessions get a badge â human review happens in background)
     let badgeId: string | undefined
     let verificationUrl: string | undefined
 
@@ -260,7 +260,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
 
     const message = passed
       ? `Excellent work! You scored ${scorePercent.toFixed(0)}% and passed this section.`
-      : `You scored ${scorePercent.toFixed(0)}%. You need ${ASSESSMENT.PASS_THRESHOLD_PERCENT}% to pass. Keep going — you can retry in 24 hours.`
+      : `You scored ${scorePercent.toFixed(0)}%. You need ${ASSESSMENT.PASS_THRESHOLD_PERCENT}% to pass. Keep going â you can retry in 24 hours.`
 
     return NextResponse.json({
       success: true,
