@@ -22,7 +22,7 @@ export default async function TutorLayout({ children }: { children: React.ReactN
     <div className="min-h-screen bg-deep flex flex-col">
       <header className="sticky top-0 z-50 bg-deep/95 backdrop-blur border-b border-teal/10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link href="/tutor/dashboard" className="flex items-center gap-0.5">
+          <Link href="/tutor/tutor/dashboard" className="flex items-center gap-0.5">
             <Logo variant="nav" className="h-7 w-auto" />
           </Link>
           <span className="text-xs text-teech-muted">{profile.preferred_name ?? ''}</span>
@@ -39,7 +39,7 @@ export default async function TutorLayout({ children }: { children: React.ReactN
         <div className="max-w-2xl mx-auto px-4">
           <div className="flex items-center justify-around py-2">
             {[
-              { href: '/tutor/dashboard', Icon: IconHome,     label: 'Dashboard' },
+              { href: '/tutor/tutor/dashboard', Icon: IconHome,     label: 'Dashboard' },
               { href: '/tutor/sessions',  Icon: IconCalendar, label: 'Sessions'  },
               { href: '/tutor/earnings',  Icon: IconMoney,    label: 'Earnings'  },
             ].map(({ href, Icon, label }) => (
