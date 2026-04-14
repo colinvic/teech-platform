@@ -308,6 +308,7 @@ export default function AdminTutorsPage() {
     }
   }, [])
 
+  // Load counts for all tabs on mount
   useEffect(() => {
     const loadCounts = async () => {
       const results: Record<string, number> = {}
@@ -337,6 +338,7 @@ export default function AdminTutorsPage() {
     if (json.success) {
       setSelected(null)
       await fetchTutors(statusTab)
+      // Refresh counts
       const countRes  = await fetch(`/api/admin/tutors?status=${statusTab}`)
       const countJson = await countRes.json()
       if (countJson.success) setCounts((prev) => ({ ...prev, [statusTab]: countJson.data.length }))
@@ -356,38 +358,108 @@ export default function AdminTutorsPage() {
           Back to dashboard
         </a>
       </div>
+
+      {/* Status tabs */}
       <div className="mb-6 flex gap-1 rounded-xl bg-neutral-100 p-1">
         {STATUS_TABS.map(({ value, label }) => (
-          <button key={value} type="button" onClick={() => setStatusTab(value)}
-            className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${statusTab === value ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500'}`}>
+          <button
+            key={value}
+            type="button"
+            onClick={() => setStatusTab(value)}
+            className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              statusTab === value
+                ? 'bg-white text-neutral-900 shadow-sm'
+                : 'text-neutral-500 hover:text-neutral-700'
+            }`}
+          >
             {label}
-            {counts[value] > 0 && <span className="rounded-full px-1.5 py-0.5 text-xs font-bold bg-neutral-200 text-neutral-600">{counts[value]}</span>}
+            {counts[value] !== undefined && counts[value] > 0 && (
+              <span className={`rounded-full px-1.5 py-0.5 text-xs font-bold ${
+                value === 'pending' && counts[value] > 0
+                  ? 'bg-amber-500 text-white'
+                  : 'bg-neutral-200 text-neutral-600'
+              }`}>
+                {counts[value]}
+              </span>
+            )}
           </button>
         ))}
       </div>
-      {loading ? <div className="flex justify-center py-16"><div className="h-6 w-6 animate-spin rounded-full border-2 border-brand-teal border-t-transparent" /></div>
-        : tutors.length === 0 ? <div className="rounded-2xl border border-dashed border-neutral-300 py-16 text-center"><p>No {statusTab} tutors</p></div>
-        : <div className="space-y-3">{tutors.map(t => (
-            <button key={t.profile_id} type="button" onClick={() => setSelected(t)}
-              className="w-full rounded-2xl border border-neutral-200 bg-white p-5 text-left shadow-sm transition-all hover:border-brand-teal">
+
+      {/* Tutor list */}
+      {loading ? (
+        <div className="flex justify-center py-16">
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-brand-teal border-t-transparent" />
+        </div>
+      ) : tutors.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-neutral-300 py-16 text-center">
+          <p className="text-sm font-medium text-neutral-500">No {statusTab} tutors</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {tutors.map((tutor) => (
+            <button
+              key={tutor.profile_id}
+              type="button"
+              onClick={() => setSelected(tutor)}
+              className="w-full rounded-2xl border border-neutral-200 bg-white p-5 text-left shadow-sm transition-all hover:border-brand-teal hover:shadow-md"
+            >
               <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2"><p className="font-semibold text-neutral-900">{t.profiles.full_name}</p><StatusPill value={t.status} /></div>
-                  <p className="text-sm text-neutral-500">{t.profiles.email}</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold text-neutral-900">{tutor.profiles.full_name}</p>
+                    <StatusPill value={tutor.status} />
+                  </div>
+                  <p className="mt-0.5 text-sm text-neutral-500">{tutor.profiles.email}</p>
+                  <p className="mt-1 text-xs text-neutral-400">
+                    Registered {new Date(tutor.created_at).toLocaleDateString('en-AU', {
+                      day: 'numeric', month: 'short', year: 'numeric'
+                    })}
+                  </p>
                 </div>
+
+                {/* Quick-check dots */}
                 <div className="flex shrink-0 items-center gap-1.5">
-                  {[{ label: 'KYC', ok: t.kyc_verified }, { label: 'WWC', ok: t.wwc_verified }, { label: 'Stripe', ok: t.stripe_onboarding_complete }].map(({ label, ok }) => (
+                  {[
+                    { label: 'KYC',     ok: tutor.kyc_verified },
+                    { label: 'WWC',     ok: tutor.wwc_verified },
+                    { label: 'Stripe',  ok: tutor.stripe_onboarding_complete },
+                  ].map(({ label, ok }) => (
                     <div key={label} className="flex flex-col items-center gap-0.5">
                       <div className={`h-2.5 w-2.5 rounded-full ${ok ? 'bg-green-500' : 'bg-neutral-200'}`} />
                       <span className="text-[9px] font-medium text-neutral-400">{label}</span>
                     </div>
                   ))}
+                  <svg viewBox="0 0 20 20" fill="currentColor" className="ml-2 h-4 w-4 text-neutral-300">
+                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </svg>
                 </div>
               </div>
+
+              {tutor.subjects.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1">
+                  {tutor.subjects.slice(0, 3).map((s) => (
+                    <span key={s} className="rounded-full bg-teal-50 px-2 py-0.5 text-xs text-brand-teal">
+                      {s}
+                    </span>
+                  ))}
+                  {tutor.subjects.length > 3 && (
+                    <span className="text-xs text-neutral-400">+{tutor.subjects.length - 3} more</span>
+                  )}
+                </div>
+              )}
             </button>
-          ))}</div>}
+          ))}
+        </div>
+      )}
+
+      {/* Drawer */}
       {selected && (
-        <TutorDrawer tutor={selected} onAction={handleAction} onClose={() => setSelected(null)} />
+        <TutorDrawer
+          tutor={selected}
+          onAction={handleAction}
+          onClose={() => setSelected(null)}
+        />
       )}
     </div>
   )
