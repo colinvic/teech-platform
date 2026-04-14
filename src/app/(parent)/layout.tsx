@@ -22,7 +22,7 @@ export default async function ParentLayout({ children }: { children: React.React
     <div className="min-h-screen bg-deep flex flex-col">
       <header className="sticky top-0 z-50 bg-deep/95 backdrop-blur border-b border-teal/10">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link href="/parent/dashboard" className="flex items-center gap-0.5">
+          <Link href="/parent/parent/dashboard" className="flex items-center gap-0.5">
             <Logo variant="nav" className="h-7 w-auto" />
           </Link>
           <span className="text-xs text-teech-muted">{profile.preferred_name ?? ''}</span>
@@ -39,7 +39,7 @@ export default async function ParentLayout({ children }: { children: React.React
         <div className="max-w-2xl mx-auto px-4">
           <div className="flex items-center justify-around py-2">
             {[
-              { href: '/parent/dashboard', Icon: IconUsers,    label: 'Children' },
+              { href: '/parent/parent/dashboard', Icon: IconUsers,    label: 'Children' },
               { href: '/parent/settings',  Icon: IconSettings, label: 'Settings'  },
             ].map(({ href, Icon, label }) => (
               <Link key={href} href={href} className="flex flex-col items-center gap-1 px-6 py-1.5 rounded-xl text-teech-muted hover:text-teal transition-colors group">
