@@ -20,7 +20,7 @@ export async function GET(
         id, student_id, section_id, assessment_session_id,
         rarity, score_percentage, issued_at, signature, is_revoked,
         section:curriculum_sections(name, subject:curriculum_subjects(name, year_level)),
-        student:profiles(preferred_name)
+        student:profiles(full_name)
       `)
       .eq('id', id)
       .single()
@@ -41,7 +41,7 @@ export async function GET(
     )
 
     const section = badge.section as { name: string; subject: { name: string; year_level: string } } | null
-    const student = badge.student as { preferred_name: string | null } | null
+    const student = badge.student as { full_name: string | null } | null
 
     const publicData = formatBadgeForPublic({
       badgeId: badge.id as string,
@@ -52,7 +52,7 @@ export async function GET(
       issuedAt: new Date(badge.issued_at as string),
       rarity: badge.rarity as 'standard' | 'first_pass' | 'perfect_score' | 'fast_pass' | 'streak',
       isRevoked: (badge.is_revoked as boolean) || !isSignatureValid,
-      preferredName: student?.preferred_name ?? 'A student',
+      preferredName: student?.full_name ?? 'A student',
     })
 
     return NextResponse.json({ success: true, data: publicData })
