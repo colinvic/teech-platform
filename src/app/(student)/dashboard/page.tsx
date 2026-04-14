@@ -24,9 +24,9 @@ async function getDashboardData() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('id, preferred_name')
-    .eq('user_id', user.id)
-    .single<{ id: string; preferred_name: string | null }>()
+    .select('id, full_name')
+    .eq('id', user.id)
+    .single<{ id: string; full_name: string | null }>()
 
   if (!profile) return null
 
@@ -88,7 +88,7 @@ export default async function DashboardPage() {
   if (!data) redirect('/login')
 
   const { profile, studentProfile, subjects } = data
-  const name = profile.preferred_name ?? 'there'
+  const name = profile.full_name ?? 'there'
   const streak = studentProfile?.streak_current ?? 0
   const passed = studentProfile?.total_sections_passed ?? 0
   const badges = studentProfile?.total_badges_earned ?? 0
@@ -134,7 +134,7 @@ export default async function DashboardPage() {
         </div>
       )}
 
-      {/* Curriculum map — sections grouped by subject */}
+      {/* Curriculum map â sections grouped by subject */}
       {subjects.map(subject => (
         <div key={subject.id}>
           <div className="flex items-center gap-2 mb-3">
@@ -164,7 +164,7 @@ export default async function DashboardPage() {
                         <p className="text-sm font-semibold text-white truncate">{section.name}</p>
                         <p className="text-xs text-teech-muted mt-0.5">
                           ~{section.estimated_duration_minutes} min
-                          {score !== undefined && score !== null && ` · Best: ${score.toFixed(0)}%`}
+                          {score !== undefined && score !== null && ` Â· Best: ${score.toFixed(0)}%`}
                         </p>
                       </div>
                     </div>
