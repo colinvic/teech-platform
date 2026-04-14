@@ -17,7 +17,7 @@ const GST_RATE           = 0.10
 
 export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse<{ sessionId: string }>>> {
   try {
-    const supabase = createServerClient()
+    const supabase = await createServerClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     if (authError || !user) return NextResponse.json({ success: false, error: 'Unauthorised', code: 'UNAUTHORISED' }, { status: 401 })
     const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
