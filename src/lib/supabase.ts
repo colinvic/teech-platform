@@ -1,5 +1,5 @@
 /**
- * teech-platform — Supabase Client
+ * teech-platform â Supabase Client
  *
  * Two clients:
  * - createBrowserClient: for use in Client Components
@@ -11,8 +11,6 @@
 
 import { createBrowserClient as supabaseCreateBrowserClient } from '@supabase/ssr'
 import { createServerClient as supabaseCreateServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const SUPABASE_ANON_KEY = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
 const SUPABASE_SERVICE_ROLE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
@@ -24,15 +22,16 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   )
 }
 
-// ── Browser client (Client Components) ───────────────────────────────────────
+// ââ Browser client (Client Components) âââââââââââââââââââââââââââââââââââââââ
 
 export function createBrowserClient() {
   return supabaseCreateBrowserClient(SUPABASE_URL!, SUPABASE_ANON_KEY!)
 }
 
-// ── Server client (Server Components, Route Handlers, Server Actions) ─────────
+// ââ Server client (Server Components, Route Handlers, Server Actions) âââââââââ
 
 export async function createServerClient() {
+  const { cookies } = await import('next/headers')
   const cookieStore = await cookies()
 
   return supabaseCreateServerClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
@@ -47,7 +46,7 @@ export async function createServerClient() {
           )
         } catch {
           // The `setAll` method is called from Server Components where cookies
-          // cannot be set. This is safe to ignore — the session will be refreshed
+          // cannot be set. This is safe to ignore â the session will be refreshed
           // by the middleware.
         }
       },
@@ -55,7 +54,7 @@ export async function createServerClient() {
   })
 }
 
-// ── Admin client (service role — server-side only, never expose to client) ────
+// ââ Admin client (service role â server-side only, never expose to client) ââââ
 // Use ONLY for:
 //   - Compliance audit log writes (bypasses RLS intentionally)
 //   - Admin-level operations with appropriate access controls
