@@ -9,10 +9,10 @@ async function getParentSettings() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('id, preferred_name, full_name')
-    .eq('user_id', user.id)
+    .select('id, full_name, full_name')
+    .eq('id', user.id)
     .eq('role', 'parent')
-    .single<{ id: string; preferred_name: string | null; full_name: string }>()
+    .single<{ id: string; full_name: string | null; full_name: string }>()
 
   if (!profile) return null
 
@@ -36,7 +36,7 @@ export default async function ParentSettingsPage() {
   if (!data) redirect('/login')
 
   const { profile, parentProfile, consentRecords, userEmail } = data
-  const name = profile.preferred_name ?? profile.full_name
+  const name = profile.full_name ?? profile.full_name
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -75,7 +75,7 @@ export default async function ParentSettingsPage() {
             data teech.au holds about you and your children.
           </p>
           <p>
-            All data is stored in Australia (Supabase, Sydney — AWS ap-southeast-2).
+            All data is stored in Australia (Supabase, Sydney â AWS ap-southeast-2).
             Your data is never sold or used for advertising.
           </p>
         </div>
