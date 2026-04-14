@@ -1,2 +1,2 @@
-// teech-platform dev seed script -- see docs for full version
+// teech-platform seed script -- run with: npx ts-node --esm scripts/seed-test-accounts.ts
 export {};
