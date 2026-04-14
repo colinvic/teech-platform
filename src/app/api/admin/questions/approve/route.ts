@@ -9,7 +9,7 @@ async function verifyAdmin(request: NextRequest) {
   const { data: profile } = await supabase
     .from('profiles')
     .select('id, role')
-    .eq('user_id', user.id)
+    .eq('id', user.id)
     .single<{ id: string; role: string }>()
 
   if (profile?.role !== 'admin') return null
