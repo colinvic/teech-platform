@@ -37,9 +37,9 @@ async function getChildData(parentUserId: string, childId: string) {
 
   const { data: childBaseProfile } = await supabase
     .from('profiles')
-    .select('preferred_name, full_name')
+    .select('full_name, full_name')
     .eq('id', childId)
-    .single<{ preferred_name: string | null; full_name: string }>()
+    .single<{ full_name: string | null; full_name: string }>()
 
   const { data: cache } = await supabase
     .from('report_card_cache')
@@ -123,7 +123,7 @@ export default async function ChildDetailPage({
   if (!data) notFound()
 
   const { studentProfile, childBaseProfile, cache, identity, sectionProgress, failFlags, badges } = data
-  const name = childBaseProfile?.preferred_name ?? childBaseProfile?.full_name ?? 'Student'
+  const name = childBaseProfile?.full_name ?? childBaseProfile?.full_name ?? 'Student'
 
   const passed = sectionProgress.filter(s => s.status === 'passed' || s.status === 'mastered').length
   const inProgress = sectionProgress.filter(s => s.status === 'in_progress').length
@@ -190,7 +190,7 @@ export default async function ChildDetailPage({
           <div className="flex items-center justify-between mb-3">
             <p className="label">Learning Identity</p>
             <span className="text-[9px] text-teech-muted/60 bg-deep px-2 py-0.5 rounded-full border border-teal/8">
-              {MONTH_NAMES[identity.period_month]} {identity.period_year} · AI generated
+              {MONTH_NAMES[identity.period_month]} {identity.period_year} Â· AI generated
             </span>
           </div>
           <p className="text-sm text-white/70 leading-relaxed">{identity.generated_text}</p>
@@ -291,7 +291,7 @@ export default async function ChildDetailPage({
                     {badge.section?.name ?? 'Section'}
                   </p>
                   <p className="text-[10px] text-teal font-bold mt-0.5">
-                    {badge.score_percentage.toFixed(0)}% · {date}
+                    {badge.score_percentage.toFixed(0)}% Â· {date}
                   </p>
                 </a>
               )
