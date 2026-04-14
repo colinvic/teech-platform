@@ -12,7 +12,7 @@ async function getSectionData(slug: string) {
   const { data: profile } = await supabase
     .from('profiles')
     .select('id')
-    .eq('user_id', user.id)
+    .eq('id', user.id)
     .single<{ id: string }>()
 
   if (!profile) return null
@@ -60,7 +60,7 @@ export default async function LearnPage({ params }: { params: Promise<{ slug: st
       {/* Back + header */}
       <div>
         <Link href="/dashboard" className="text-sm text-teech-muted hover:text-teal transition-colors flex items-center gap-1 mb-4">
-          ← Back to curriculum
+          â Back to curriculum
         </Link>
         <span className="label block mb-1">{(section as { subject?: { name: string } }).subject?.name}</span>
         <h1 className="font-display text-2xl font-bold text-white">{section.name}</h1>
@@ -104,7 +104,7 @@ export default async function LearnPage({ params }: { params: Promise<{ slug: st
               )}
               </div>
 
-              {/* Render content — cards use markdown-style content */}
+              {/* Render content â cards use markdown-style content */}
               <div className="text-white/65 text-sm leading-relaxed whitespace-pre-wrap">
                 {card.content}
               </div>
@@ -149,7 +149,7 @@ export default async function LearnPage({ params }: { params: Promise<{ slug: st
             You&apos;ve read all the content for {section.name}. Test your understanding before the assessment.
           </p>
           <Link href={`/section/${slug}/practice`} className="btn-primary">
-            Start practising →
+            Start practising â
           </Link>
         </div>
       )}
