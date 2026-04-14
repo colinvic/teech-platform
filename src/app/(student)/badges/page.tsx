@@ -7,7 +7,7 @@ import {
   IconLightning as IconRocket, IconFlame, IconCheckCircle
 } from '@/components/icons'
 
-// Badge rarity — pure CSS styling, no emojis
+// Badge rarity â pure CSS styling, no emojis
 const RARITY_CONFIG = {
   standard:     { border: 'border-teal/20',       glow: '',                          label: 'Pass',         Icon: IconBadge,     iconClass: 'text-teal'  },
   first_pass:   { border: 'border-lime/40',        glow: 'shadow-lime/10 shadow-lg',  label: 'First Attempt',Icon: IconLightning,  iconClass: 'text-lime'  },
@@ -24,7 +24,7 @@ async function getBadges() {
   const { data: profile } = await supabase
     .from('profiles')
     .select('id')
-    .eq('user_id', user.id)
+    .eq('id', user.id)
     .single<{ id: string }>()
 
   if (!profile) return null
@@ -100,7 +100,7 @@ export default async function BadgesPage() {
                   {badge.section.name}
                 </p>
                 <p className="text-[10px] text-teech-muted">
-                  {badge.score_percentage.toFixed(0)}% · {issuedDate}
+                  {badge.score_percentage.toFixed(0)}% Â· {issuedDate}
                 </p>
               </Link>
             )
@@ -108,7 +108,7 @@ export default async function BadgesPage() {
         </div>
       ) : (
         <div className="text-center py-16 space-y-4">
-          {/* CSS badge placeholder — no emoji */}
+          {/* CSS badge placeholder â no emoji */}
           <div className="w-20 h-20 rounded-full border-2 border-teal/20 flex items-center justify-center mx-auto">
             <IconBadge className="w-10 h-10 text-teal/30" />
           </div>
