@@ -8,7 +8,7 @@ interface Props {
 }
 
 async function getTutorDetail(tutorId: string) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
 
   const { data: tutor } = await supabase
     .from('tutor_profiles')
@@ -50,7 +50,7 @@ async function getTutorDetail(tutorId: string) {
 }
 
 async function getParentChildren(parentId: string) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   const { data } = await supabase
     .from('student_profiles')
     .select('profile_id, year_level, profiles!inner ( full_name )')
@@ -82,13 +82,13 @@ function StarRow({ value, count }: { value: number | null; count: number }) {
           </svg>
         ))}
       </div>
-      <span className="text-sm text-neutral-600">{value.toFixed(1)} · {count} review{count !== 1 ? 's' : ''}</span>
+      <span className="text-sm text-neutral-600">{value.toFixed(1)} Â· {count} review{count !== 1 ? 's' : ''}</span>
     </div>
   )
 }
 
 export default async function TutorDetailPage({ params }: Props) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
@@ -181,7 +181,7 @@ export default async function TutorDetailPage({ params }: Props) {
                 <div className="flex flex-wrap gap-1.5">
                   {slots.map((s, i) => (
                     <span key={i} className="rounded-md bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700">
-                      {formatTime(s.start_time as string)} – {formatTime(s.end_time as string)}
+                      {formatTime(s.start_time as string)} â {formatTime(s.end_time as string)}
                     </span>
                   ))}
                 </div>
