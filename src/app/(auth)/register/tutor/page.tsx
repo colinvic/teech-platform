@@ -87,7 +87,7 @@ export default function TutorRegisterPage() {
       options: {
         shouldCreateUser: true,
         data: {
-          preferred_name: form.preferredName.trim(),
+          full_name: form.preferredName.trim(),
           role: 'tutor',
           abn: form.abn.replace(/\s/g, ''),
           wwc_state: form.state,
@@ -285,7 +285,7 @@ export default function TutorRegisterPage() {
             required
             className="w-full bg-deep border border-teal/20 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal"
           >
-            <option value="">Select state…</option>
+            <option value="">Select stateâ¦</option>
             {AU_STATES.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
           <p className="mt-1.5 text-xs text-teech-muted">
