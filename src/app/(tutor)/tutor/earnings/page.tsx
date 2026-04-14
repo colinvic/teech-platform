@@ -10,7 +10,7 @@ async function getTutorEarnings() {
 
   const { data: profile } = await supabase
     .from('profiles').select('id')
-    .eq('user_id', user.id).single<{ id: string }>()
+    .eq('id', user.id).single<{ id: string }>()
 
   if (!profile) return null
 
@@ -89,7 +89,7 @@ export default async function TutorEarningsPage() {
                 <div key={i} className="bg-surface border border-teal/8 rounded-xl px-4 py-3 flex items-center justify-between">
                   <div>
                     <p className="text-sm text-white">{formatAUD(payout.net_to_tutor)}</p>
-                    <p className="text-[10px] text-teech-muted mt-0.5">{date} · FY {payout.financial_year}</p>
+                    <p className="text-[10px] text-teech-muted mt-0.5">{date} Â· FY {payout.financial_year}</p>
                   </div>
                   <div className="flex items-center gap-1.5 text-xs text-teech-muted">
                     <IconMoney className="w-3.5 h-3.5" />
