@@ -13,7 +13,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try { event = stripe.webhooks.constructEvent(body, sig, WEBHOOK_SECRET) }
   catch (err) { return NextResponse.json({ error: 'Invalid signature' }, { status: 400 }) }
   const db = createAdminClient()
-  logger.info('webhook'received', { type: event.type, id: event.id })
+  logger.info('webhook.received', { type: event.type, id: event.id })
   try {
     switch (event.type) {
       case 'checkout.session.completed': {
