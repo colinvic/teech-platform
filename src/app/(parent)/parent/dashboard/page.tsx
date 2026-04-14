@@ -10,9 +10,9 @@ async function getParentData() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('id, preferred_name')
-    .eq('user_id', user.id)
-    .single<{ id: string; preferred_name: string | null }>()
+    .select('id, full_name')
+    .eq('id', user.id)
+    .single<{ id: string; full_name: string | null }>()
 
   if (!profile) return null
 
@@ -21,7 +21,7 @@ async function getParentData() {
     .from('student_profiles')
     .select(`
       id, year_level, streak_current, total_sections_passed, total_badges_earned, last_active_at,
-      profile:profiles!id(preferred_name)
+      profile:profiles!id(full_name)
     `)
     .eq('parent_id', profile.id)
 
@@ -34,7 +34,7 @@ async function getParentData() {
         total_sections_passed: number
         total_badges_earned: number
         last_active_at: string | null
-        profile: { preferred_name: string | null } | null
+        profile: { full_name: string | null } | null
       }
 
       const { data: cache } = await supabase
@@ -63,7 +63,7 @@ export default async function ParentDashboardPage() {
   if (!data) redirect('/login')
 
   const { profile, children } = data
-  const name = profile.preferred_name ?? 'there'
+  const name = profile.full_name ?? 'there'
 
   function daysSince(dateStr: string | null) {
     if (!dateStr) return null
@@ -91,7 +91,7 @@ export default async function ParentDashboardPage() {
             <p className="text-xs text-teech-muted leading-relaxed">
               Ask your child to sign up at{' '}
               <span className="text-teal">teech.au/register/student</span>{' '}
-              and enter <span className="text-white">{profile.preferred_name ? 'your' : 'their parent\'s'}</span> email when prompted.
+              and enter <span className="text-white">{profile.full_name ? 'your' : 'their parent\'s'}</span> email when prompted.
             </p>
           </div>
         </div>
@@ -106,10 +106,10 @@ export default async function ParentDashboardPage() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h2 className="font-display text-xl font-bold text-white">
-                    {child.profile?.preferred_name ?? 'Student'}
+                    {child.profile?.full_name ?? 'Student'}
                   </h2>
                   <p className="text-xs text-teech-muted mt-0.5">
-                    {child.year_level.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())} ·{' '}
+                    {child.year_level.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())} Â·{' '}
                     Last active: {daysSince(child.last_active_at) ?? 'Never'}
                   </p>
                 </div>
@@ -147,7 +147,7 @@ export default async function ParentDashboardPage() {
                 <div className="bg-teal/10 border border-teal/25 rounded-xl px-3 py-2 flex items-center gap-2">
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-teal flex-shrink-0" aria-hidden="true"><path d="M13 2L4.5 13.5H11L10 22l9.5-12H13L13 2z"/></svg>
                   <p className="text-xs text-teal">
-                    {child.profile?.preferred_name ?? 'Your child'} is stuck on {child.failFlagCount} section{child.failFlagCount !== 1 ? 's' : ''} — a tutor could help.
+                    {child.profile?.full_name ?? 'Your child'} is stuck on {child.failFlagCount} section{child.failFlagCount !== 1 ? 's' : ''} â a tutor could help.
                   </p>
                 </div>
               )}
