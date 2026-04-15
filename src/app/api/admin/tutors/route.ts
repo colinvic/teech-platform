@@ -13,6 +13,9 @@ export type TutorAdminRow = {
   hourly_rate_cents: number | null
   session_count: number
   rating_average: number | null
+  wwc_expiry: string | null
+  wwc_state: string | null
+  wwc_number: string | null
   profiles: { full_name: string; email: string } | null
 }
 
