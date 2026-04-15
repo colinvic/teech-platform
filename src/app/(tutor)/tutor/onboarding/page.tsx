@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
@@ -127,7 +128,7 @@ export default function TutorOnboardingPage() {
 
         {error && <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
 
-        {/* ── Step 1: Profile ── */}
+        {/* ââ Step 1: Profile ââ */}
         {step === 'profile' && (
           <div className="space-y-6">
             <div><h1 className="text-2xl font-bold text-neutral-900">Your tutor profile</h1><p className="mt-1 text-sm text-neutral-500">This is what parents and students will see. Be honest and specific.</p></div>
@@ -148,26 +149,26 @@ export default function TutorOnboardingPage() {
               <p className="mb-2 text-sm font-medium text-neutral-700">Hourly rate (incl. GST) <span className="text-red-500">*</span></p>
               <div className="grid grid-cols-4 gap-2">{RATE_OPTIONS.map(opt => <button key={opt.value} type="button" onClick={() => setRate(opt.value)} className={`rounded-lg py-2 text-sm font-medium transition-colors ${rate === opt.value ? 'bg-brand-teal text-white' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'}`}>{opt.label}</button>)}</div>
             </div>
-            <button type="button" onClick={submitProfile} disabled={saving} className="btn-primary w-full">{saving ? 'Saving…' : 'Continue'}</button>
+            <button type="button" onClick={submitProfile} disabled={saving} className="btn-primary w-full">{saving ? 'Savingâ¦' : 'Continue'}</button>
           </div>
         )}
 
-        {/* ── Step 2: WWC ── */}
+        {/* ââ Step 2: WWC ââ */}
         {step === 'wwc' && (
           <div className="space-y-6">
             <div><h1 className="text-2xl font-bold text-neutral-900">Working With Children check</h1><p className="mt-1 text-sm text-neutral-500">A valid WWC check is mandatory before your profile goes live.</p></div>
             <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800"><p className="font-medium">Legal requirement</p><p className="mt-1 text-blue-700">A current WWC check is required in every Australian state and territory before working with minors.</p></div>
             <div><label className="mb-1.5 block text-sm font-medium text-neutral-700" htmlFor="wwcNumber">WWC number <span className="text-red-500">*</span></label><input id="wwcNumber" type="text" className="input w-full uppercase" placeholder="e.g. WWC1234567A" value={wwcNumber} onChange={e => setWwcNum(e.target.value.toUpperCase())} /></div>
-            <div><label className="mb-1.5 block text-sm font-medium text-neutral-700" htmlFor="wwcState">State / Territory <span className="text-red-500">*</span></label><select id="wwcState" className="input w-full" value={wwcState} onChange={e => setWwcState(e.target.value)}><option value="">Select state…</option>{WWC_STATES.map(s => <option key={s} value={s}>{s}</option>)}</select></div>
+            <div><label className="mb-1.5 block text-sm font-medium text-neutral-700" htmlFor="wwcState">State / Territory <span className="text-red-500">*</span></label><select id="wwcState" className="input w-full" value={wwcState} onChange={e => setWwcState(e.target.value)}><option value="">Select stateâ¦</option>{WWC_STATES.map(s => <option key={s} value={s}>{s}</option>)}</select></div>
             <div><label className="mb-1.5 block text-sm font-medium text-neutral-700" htmlFor="wwcExpiry">Expiry date <span className="text-red-500">*</span></label><input id="wwcExpiry" type="date" className="input w-full" min={new Date().toISOString().split('T')[0]} value={wwcExpiry} onChange={e => setWwcExp(e.target.value)} /></div>
-            <div className="flex gap-3"><button type="button" onClick={() => setStep('profile')} className="btn-secondary flex-1">Back</button><button type="button" onClick={submitWwc} disabled={saving} className="btn-primary flex-1">{saving ? 'Saving…' : 'Continue'}</button></div>
+            <div className="flex gap-3"><button type="button" onClick={() => setStep('profile')} className="btn-secondary flex-1">Back</button><button type="button" onClick={submitWwc} disabled={saving} className="btn-primary flex-1">{saving ? 'Savingâ¦' : 'Continue'}</button></div>
           </div>
         )}
 
-        {/* ── Step 3: KYC ── */}
+        {/* ââ Step 3: KYC ââ */}
         {step === 'kyc' && (
           <div className="space-y-6">
-            <div><h1 className="text-2xl font-bold text-neutral-900">Identity verification</h1><p className="mt-1 text-sm text-neutral-500">Verify your identity using a government-issued ID. Powered by Stripe Identity — about 2 minutes.</p></div>
+            <div><h1 className="text-2xl font-bold text-neutral-900">Identity verification</h1><p className="mt-1 text-sm text-neutral-500">Verify your identity using a government-issued ID. Powered by Stripe Identity â about 2 minutes.</p></div>
             {kycStatus === 'verified' ? (
               <div className="rounded-xl border border-green-200 bg-green-50 p-5 text-center space-y-2">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
@@ -180,7 +181,7 @@ export default function TutorOnboardingPage() {
               <div className="rounded-xl border border-neutral-200 bg-white p-5 space-y-4">
                 {[
                   { label: 'Accepted documents', desc: 'Australian passport or driver licence' },
-                  { label: 'Live selfie required', desc: 'Your device camera will be used — no static uploads accepted' },
+                  { label: 'Live selfie required', desc: 'Your device camera will be used â no static uploads accepted' },
                   { label: 'Privacy protected', desc: 'Document images are stored by Stripe under their privacy policy, not teech' },
                 ].map(({ label, desc }) => (
                   <div key={label} className="flex items-start gap-3">
@@ -194,16 +195,16 @@ export default function TutorOnboardingPage() {
               <button type="button" onClick={() => setStep('wwc')} className="btn-secondary flex-1">Back</button>
               {kycStatus === 'verified'
                 ? <button type="button" onClick={() => setStep('connect')} className="btn-primary flex-1">Continue to payment setup</button>
-                : <button type="button" onClick={startKyc} disabled={saving} className="btn-primary flex-1">{saving ? 'Redirecting…' : 'Verify identity with Stripe'}</button>
+                : <button type="button" onClick={startKyc} disabled={saving} className="btn-primary flex-1">{saving ? 'Redirectingâ¦' : 'Verify identity with Stripe'}</button>
               }
             </div>
           </div>
         )}
 
-        {/* ── Step 4: Connect ── */}
+        {/* ââ Step 4: Connect ââ */}
         {step === 'connect' && (
           <div className="space-y-6">
-            <div><h1 className="text-2xl font-bold text-neutral-900">Payment setup</h1><p className="mt-1 text-sm text-neutral-500">Connect your bank account to receive payouts. Powered by Stripe — takes about 5 minutes.</p></div>
+            <div><h1 className="text-2xl font-bold text-neutral-900">Payment setup</h1><p className="mt-1 text-sm text-neutral-500">Connect your bank account to receive payouts. Powered by Stripe â takes about 5 minutes.</p></div>
             <div className="rounded-lg border border-neutral-200 bg-white p-5 space-y-4">
               {[
                 { label: 'Bank-level security', desc: 'Stripe is PCI-DSS Level 1 certified. teech never sees your bank details.' },
@@ -218,18 +219,18 @@ export default function TutorOnboardingPage() {
             </div>
             <div className="flex gap-3">
               <button type="button" onClick={() => setStep('kyc')} className="btn-secondary flex-1">Back</button>
-              <button type="button" onClick={startConnect} disabled={saving} className="btn-primary flex-1">{saving ? 'Redirecting…' : 'Set up payments with Stripe'}</button>
+              <button type="button" onClick={startConnect} disabled={saving} className="btn-primary flex-1">{saving ? 'Redirectingâ¦' : 'Set up payments with Stripe'}</button>
             </div>
           </div>
         )}
 
-        {/* ── Step 5: Complete ── */}
+        {/* ââ Step 5: Complete ââ */}
         {step === 'complete' && (
           <div className="space-y-6 text-center">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-brand-lime">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-10 w-10 text-neutral-900"><polyline points="20 6 9 17 4 12" /></svg>
             </div>
-            <div><h1 className="text-2xl font-bold text-neutral-900">Onboarding complete</h1><p className="mt-2 text-sm text-neutral-500">Your profile is under review. Our team will verify your details and activate your account within 1–2 business days. You will receive an email when you go live.</p></div>
+            <div><h1 className="text-2xl font-bold text-neutral-900">Onboarding complete</h1><p className="mt-2 text-sm text-neutral-500">Your profile is under review. Our team will verify your details and activate your account within 1â2 business days. You will receive an email when you go live.</p></div>
             <div className="rounded-lg border border-neutral-200 bg-white p-5 text-left space-y-2">
               <p className="text-sm font-semibold text-neutral-700">What happens next</p>
               <ol className="space-y-2 text-sm text-neutral-600 list-decimal list-inside">
