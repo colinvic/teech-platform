@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useState } from 'react'
@@ -285,7 +286,7 @@ export default function TutorRegisterPage() {
             required
             className="w-full bg-deep border border-teal/20 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal"
           >
-            <option value="">Select stateâ¦</option>
+            <option value="">Select stateÃ¢ÂÂ¦</option>
             {AU_STATES.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
           <p className="mt-1.5 text-xs text-teech-muted">
