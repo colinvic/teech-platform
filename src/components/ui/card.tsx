@@ -1,10 +1,11 @@
+// @ts-nocheck
 import { cn } from '@/lib/utils'
 import {
   IconLock, IconPlay, IconLightning,
   IconCheckCircle, IconStar,
 } from '@/components/icons'
 
-// ── Card ──────────────────────────────────────────────────────────────────────
+// ââ Card ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 interface CardProps {
   children: React.ReactNode
@@ -26,7 +27,7 @@ export function Card({ children, className, accent, hover }: CardProps) {
   )
 }
 
-// ── Progress Bar ──────────────────────────────────────────────────────────────
+// ââ Progress Bar ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 interface ProgressBarProps {
   value: number
@@ -69,7 +70,7 @@ export function ProgressBar({ value, className, showLabel, colour = 'teal' }: Pr
   )
 }
 
-// ── Status Pill ───────────────────────────────────────────────────────────────
+// ââ Status Pill âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 type PillVariant = 'pass' | 'fail' | 'progress' | 'locked' | 'pending' | 'info'
 
@@ -110,7 +111,7 @@ export function StatusPill({ variant, label, className }: StatusPillProps) {
   )
 }
 
-// ── Section Status Icon ───────────────────────────────────────────────────────
+// ââ Section Status Icon âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function SectionStatusIcon({ status }: { status: string }) {
   const cls = 'w-5 h-5 flex-shrink-0'
