@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import type { TutorAdminRow } from '@/app/api/admin/tutors/route'
 
-// ââ Status badge ââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Status badge Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function StatusPill({ value }: { value: string }) {
   const map: Record<string, string> = {
     pending:   'bg-amber-100 text-amber-800',
@@ -18,7 +18,7 @@ function StatusPill({ value }: { value: string }) {
   )
 }
 
-// ââ Tick / cross icon âââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Tick / cross icon Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function Verified({ ok }: { ok: boolean }) {
   return ok ? (
     <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 text-green-500">
@@ -31,7 +31,7 @@ function Verified({ ok }: { ok: boolean }) {
   )
 }
 
-// ââ Tutor detail drawer âââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Tutor detail drawer Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function TutorDrawer({
   tutor,
   onAction,
@@ -50,12 +50,12 @@ function TutorDrawer({
     setLoading(null)
   }
 
-  const expiryDate = tutor.wwc_expiry
-    ? new Date(tutor.wwc_expiry).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })
+  const expiryDate = tutor.wwc_expiry??null
+    ? new Date(tutor.wwc_expiry??null).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })
     : null
 
-  const isExpiringSoon = tutor.wwc_expiry
-    ? new Date(tutor.wwc_expiry) < new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
+  const isExpiringSoon = tutor.wwc_expiry??null
+    ? new Date(tutor.wwc_expiry??null) < new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
     : false
 
   return (
@@ -109,16 +109,16 @@ function TutorDrawer({
             <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 space-y-1.5 text-sm">
               <div className="flex justify-between">
                 <span className="text-neutral-500">Number</span>
-                <span className="font-mono font-medium text-neutral-800">{tutor.wwc_number ?? 'â'}</span>
+                <span className="font-mono font-medium text-neutral-800">{tutor.wwc_number??null ?? 'Ã¢ÂÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">State</span>
-                <span className="font-medium text-neutral-800">{tutor.wwc_state ?? 'â'}</span>
+                <span className="font-medium text-neutral-800">{tutor.wwc_state??null ?? 'Ã¢ÂÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Expiry</span>
                 <span className={`font-medium ${isExpiringSoon ? 'text-amber-600' : 'text-neutral-800'}`}>
-                  {expiryDate ?? 'â'}{isExpiringSoon ? ' â expiring soon' : ''}
+                  {expiryDate ?? 'Ã¢ÂÂ'}{isExpiringSoon ? ' Ã¢ÂÂ expiring soon' : ''}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -132,11 +132,11 @@ function TutorDrawer({
               {!tutor.wwc_verified ? (
                 <button
                   type="button"
-                  disabled={loading === 'verify_wwc' || !tutor.wwc_number}
+                  disabled={loading === 'verify_wwc' || !tutor.wwc_number??null}
                   onClick={() => act('verify_wwc')}
                   className="rounded-lg bg-green-600 px-3 py-2 text-xs font-medium text-white hover:bg-green-700 disabled:opacity-40 transition-colors"
                 >
-                  {loading === 'verify_wwc' ? 'Verifyingâ¦' : 'Mark WWC verified'}
+                  {loading === 'verify_wwc' ? 'VerifyingÃ¢ÂÂ¦' : 'Mark WWC verified'}
                 </button>
               ) : (
                 <button
@@ -150,14 +150,14 @@ function TutorDrawer({
               )}
             </div>
 
-            {tutor.wwc_state && tutor.wwc_number && (
+            {tutor.wwc_state??null && tutor.wwc_number??null && (
               <p className="mt-2 text-xs text-neutral-400">
                 Verify at:{' '}
-                {wwcVerifyUrl(tutor.wwc_state, tutor.wwc_number)
-                  ? <a href={wwcVerifyUrl(tutor.wwc_state, tutor.wwc_number)!} target="_blank" rel="noopener noreferrer" className="text-brand-teal underline">
-                      {tutor.wwc_state} WWC register
+                {wwcVerifyUrl(tutor.wwc_state??null, tutor.wwc_number??null)
+                  ? <a href={wwcVerifyUrl(tutor.wwc_state??null, tutor.wwc_number??null)!} target="_blank" rel="noopener noreferrer" className="text-brand-teal underline">
+                      {tutor.wwc_state??null} WWC register
                     </a>
-                  : `${tutor.wwc_state} WWC register`
+                  : `${tutor.wwc_state??null} WWC register`
                 }
               </p>
             )}
@@ -169,16 +169,16 @@ function TutorDrawer({
             <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 text-sm space-y-1.5">
               <div className="flex justify-between">
                 <span className="text-neutral-500">Subjects</span>
-                <span className="text-neutral-800">{tutor.subjects.join(', ') || 'â'}</span>
+                <span className="text-neutral-800">{tutor.subjects.join(', ') || 'Ã¢ÂÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Year levels</span>
-                <span className="text-neutral-800">{tutor.year_levels.sort((a,b)=>a-b).join(', ') || 'â'}</span>
+                <span className="text-neutral-800">{tutor.year_levels.sort((a,b)=>a-b).join(', ') || 'Ã¢ÂÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Rate</span>
                 <span className="text-neutral-800">
-                  {tutor.hourly_rate_cents ? `$${(tutor.hourly_rate_cents / 100).toFixed(0)}/hr` : 'â'}
+                  {tutor.hourly_rate_cents??0 ? `$${(tutor.hourly_rate_cents??0 / 100).toFixed(0)}/hr` : 'Ã¢ÂÂ'}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -197,7 +197,7 @@ function TutorDrawer({
           {/* Admin note */}
           <div>
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-neutral-400" htmlFor="admin-note">
-              Admin note (optional â logged)
+              Admin note (optional Ã¢ÂÂ logged)
             </label>
             <textarea
               id="admin-note"
@@ -220,7 +220,7 @@ function TutorDrawer({
                   disabled={loading === 'approve' || !tutor.wwc_verified || !tutor.stripe_onboarding_complete}
                   className="btn-primary w-full disabled:opacity-40"
                 >
-                  {loading === 'approve' ? 'Approvingâ¦' : 'Approve tutor â go live'}
+                  {loading === 'approve' ? 'ApprovingÃ¢ÂÂ¦' : 'Approve tutor Ã¢ÂÂ go live'}
                 </button>
                 {(!tutor.wwc_verified || !tutor.stripe_onboarding_complete) && (
                   <p className="text-center text-xs text-amber-600">
@@ -234,7 +234,7 @@ function TutorDrawer({
                   disabled={loading === 'reject'}
                   className="w-full rounded-xl border border-red-300 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors disabled:opacity-40"
                 >
-                  {loading === 'reject' ? 'Rejectingâ¦' : 'Reject application'}
+                  {loading === 'reject' ? 'RejectingÃ¢ÂÂ¦' : 'Reject application'}
                 </button>
               </>
             )}
@@ -246,7 +246,7 @@ function TutorDrawer({
                 disabled={loading === 'suspend'}
                 className="w-full rounded-xl border border-amber-300 py-3 text-sm font-medium text-amber-700 hover:bg-amber-50 transition-colors disabled:opacity-40"
               >
-                {loading === 'suspend' ? 'Suspendingâ¦' : 'Suspend tutor'}
+                {loading === 'suspend' ? 'SuspendingÃ¢ÂÂ¦' : 'Suspend tutor'}
               </button>
             )}
 
@@ -257,7 +257,7 @@ function TutorDrawer({
                 disabled={loading === 'approve' || !tutor.wwc_verified}
                 className="btn-primary w-full disabled:opacity-40"
               >
-                {loading === 'approve' ? 'Reactivatingâ¦' : 'Reactivate tutor'}
+                {loading === 'approve' ? 'ReactivatingÃ¢ÂÂ¦' : 'Reactivate tutor'}
               </button>
             )}
           </div>
@@ -267,7 +267,7 @@ function TutorDrawer({
   )
 }
 
-// ââ State-specific WWC register URLs âââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ State-specific WWC register URLs Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function wwcVerifyUrl(state: string, number: string): string | null {
   const urls: Record<string, string> = {
     WA:  'https://workingwithchildren.wa.gov.au/employers/checking-a-card',
@@ -282,7 +282,7 @@ function wwcVerifyUrl(state: string, number: string): string | null {
   return urls[state] ?? null
 }
 
-// ââ Main page âââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Main page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const STATUS_TABS = [
   { value: 'pending',   label: 'Pending review' },
   { value: 'active',    label: 'Active' },
