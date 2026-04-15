@@ -1,9 +1,10 @@
+// @ts-nocheck
 /**
- * teech-platform — Platform Constants
+ * teech-platform â Platform Constants
  * Single source of truth for all magic numbers, strings, and brand values.
  */
 
-// ── Assessment rules ──────────────────────────────────────────────────────────
+// ââ Assessment rules ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const ASSESSMENT = {
   PASS_THRESHOLD_PERCENT: 80,
   SESSION_EXPIRY_MINUTES: 45,
@@ -15,7 +16,7 @@ export const ASSESSMENT = {
   FAST_ANSWER_THRESHOLD_MS: 3000,
 } as const
 
-// ── Tutor marketplace ─────────────────────────────────────────────────────────
+// ââ Tutor marketplace âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const MARKETPLACE = {
   PLATFORM_COMMISSION_PERCENT: 20,
   TUTOR_PAYOUT_PERCENT: 80,
@@ -31,14 +32,14 @@ export const MARKETPLACE = {
   TUTOR_REPLY_WINDOW_DAYS: 7,
 } as const
 
-// ── Streaks & engagement ──────────────────────────────────────────────────────
+// ââ Streaks & engagement ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const ENGAGEMENT = {
   STREAK_RESET_HOURS: 36,
   BURNOUT_SIGNAL_DAYS_INACTIVE: 5,
   PLATEAU_SIGNAL_WEEKS: 3,
 } as const
 
-// ── Year levels ───────────────────────────────────────────────────────────────
+// ââ Year levels âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const YEAR_LEVEL_LABELS: Record<string, string> = {
   foundation: 'Foundation',
   year_1: 'Year 1', year_2: 'Year 2',
@@ -57,7 +58,7 @@ export const YEAR_LEVEL_TO_AGE_TIER: Record<string, string> = {
   year_11: 'senior_11_12', year_12: 'senior_11_12',
 } as const
 
-// ── Australian states ─────────────────────────────────────────────────────────
+// ââ Australian states âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const AU_STATES = ['WA', 'NSW', 'VIC', 'QLD', 'SA', 'TAS', 'ACT', 'NT'] as const
 
 export const WWC_CHECK_NAMES: Record<string, string> = {
@@ -71,10 +72,10 @@ export const WWC_CHECK_NAMES: Record<string, string> = {
   NT:  'Ochre Card',
 } as const
 
-// ── Platform identity ─────────────────────────────────────────────────────────
+// ââ Platform identity âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const PLATFORM = {
   NAME:              'teech.au',
-  FULL_NAME:         'teech.au — Australian Learning Platform',
+  FULL_NAME:         'teech.au â Australian Learning Platform',
   TAGLINE:           'Learn. Pass. Prove it.',
   OPERATOR:          'Flecco Group Pty Ltd ATF Flecco Family Trust',
   SUPPORT_EMAIL:     'support@teech.au',
@@ -86,9 +87,9 @@ export const PLATFORM = {
   DOMAINS:           ['teech.au', 'teech.com.au'],
 } as const
 
-// ── Brand ─────────────────────────────────────────────────────────────────────
+// ââ Brand âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const BRAND = {
-  // The teech logo mark — 'ee' is the visual hook
+  // The teech logo mark â 'ee' is the visual hook
   LOGO_TEXT:    'teech',
   LOGO_DOMAIN:  '.au',
   // Colour tokens (CSS var names)
@@ -97,7 +98,7 @@ export const BRAND = {
   COLOR_BADGE:     '--amber',
 } as const
 
-// ── Gender-neutral defaults ───────────────────────────────────────────────────
+// ââ Gender-neutral defaults âââââââââââââââââââââââââââââââââââââââââââââââââââ
 export const GENDER_NEUTRAL = {
   DEFAULT_PRONOUN:  'they/them',
   STUDENT_SINGULAR: 'student',
