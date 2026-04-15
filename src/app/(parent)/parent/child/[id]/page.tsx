@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { notFound, redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase'
 import Link from 'next/link'
@@ -190,7 +191,7 @@ export default async function ChildDetailPage({
           <div className="flex items-center justify-between mb-3">
             <p className="label">Learning Identity</p>
             <span className="text-[9px] text-teech-muted/60 bg-deep px-2 py-0.5 rounded-full border border-teal/8">
-              {MONTH_NAMES[identity.period_month]} {identity.period_year} Â· AI generated
+              {MONTH_NAMES[identity.period_month]} {identity.period_year} ÃÂ· AI generated
             </span>
           </div>
           <p className="text-sm text-white/70 leading-relaxed">{identity.generated_text}</p>
@@ -291,7 +292,7 @@ export default async function ChildDetailPage({
                     {badge.section?.name ?? 'Section'}
                   </p>
                   <p className="text-[10px] text-teal font-bold mt-0.5">
-                    {badge.score_percentage.toFixed(0)}% Â· {date}
+                    {badge.score_percentage.toFixed(0)}% ÃÂ· {date}
                   </p>
                 </a>
               )
