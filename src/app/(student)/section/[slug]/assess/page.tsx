@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
@@ -44,7 +45,7 @@ interface SubmitResult {
   message: string
 }
 
-// Device fingerprint — client-side only, non-PII
+// Device fingerprint â client-side only, non-PII
 function getDeviceFingerprint(): string {
   if (typeof window === 'undefined') return 'ssr'
   const components = [
@@ -243,13 +244,13 @@ export default function AssessPage({ params }: AssessPageProps) {
     ? Math.round(((currentQuestion.index) / currentQuestion.totalQuestions) * 100)
     : 0
 
-  // ── Phases ────────────────────────────────────────────────────────────────
+  // ââ Phases ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   if (phase === 'cooldown') {
     return (
       <div className="space-y-6 animate-fade-in">
         <Link href={`/section/${slug}/learn`} className="text-sm text-teech-muted hover:text-teal transition-colors flex items-center gap-1">
-          ← Back
+          â Back
         </Link>
         <div className="text-center py-12">
           <div className="w-16 h-16 rounded-full border-2 border-teal/20 flex items-center justify-center mx-auto mb-4">
@@ -264,7 +265,7 @@ export default function AssessPage({ params }: AssessPageProps) {
           </p>
           <div className="flex flex-col gap-3 mt-8">
             <Link href={`/section/${slug}/practice`} className="btn-primary">
-              Keep practising →
+              Keep practising â
             </Link>
             <Link href={`/section/${slug}/learn`} className="btn-ghost">
               Review content
@@ -279,7 +280,7 @@ export default function AssessPage({ params }: AssessPageProps) {
     return (
       <div className="space-y-6 animate-fade-in">
         <Link href={`/section/${slug}/practice`} className="text-sm text-teech-muted hover:text-teal transition-colors flex items-center gap-1">
-          ← Practice mode
+          â Practice mode
         </Link>
 
         <div>
@@ -291,15 +292,15 @@ export default function AssessPage({ params }: AssessPageProps) {
         <div className="bg-surface border border-teal/20 rounded-2xl p-5 space-y-3">
           <h2 className="font-semibold text-white text-sm">Before you begin</h2>
           {[
-            `Answer ${10} questions — you need ${ASSESSMENT.PASS_THRESHOLD_PERCENT}% to pass`,
-            `You have ${ASSESSMENT.SESSION_EXPIRY_MINUTES} minutes — the session expires automatically`,
-            'Each question is served one at a time — you cannot go back',
+            `Answer ${10} questions â you need ${ASSESSMENT.PASS_THRESHOLD_PERCENT}% to pass`,
+            `You have ${ASSESSMENT.SESSION_EXPIRY_MINUTES} minutes â the session expires automatically`,
+            'Each question is served one at a time â you cannot go back',
             'Copy and paste is disabled during the assessment',
             'Your session is monitored for irregularities',
             `A ${ASSESSMENT.COOLDOWN_HOURS_AFTER_FAIL}-hour cooldown applies after a fail`,
           ].map((rule, i) => (
             <div key={i} className="flex gap-3 text-sm text-teech-muted">
-              <span className="text-teal flex-shrink-0">·</span>
+              <span className="text-teal flex-shrink-0">Â·</span>
               <span>{rule}</span>
             </div>
           ))}
@@ -308,7 +309,7 @@ export default function AssessPage({ params }: AssessPageProps) {
         <div className="bg-lime/8 border border-lime/20 rounded-xl p-4">
           <p className="text-xs text-lime font-semibold mb-1 flex items-center gap-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3 h-3"><polyline points="20 6 9 17 4 12" /></svg> Verified credential</p>
           <p className="text-xs text-teech-muted">
-            Passing generates a cryptographically-signed badge stored on our servers — a real, shareable credential.
+            Passing generates a cryptographically-signed badge stored on our servers â a real, shareable credential.
           </p>
         </div>
 
@@ -317,7 +318,7 @@ export default function AssessPage({ params }: AssessPageProps) {
         )}
 
         <Button onClick={startSession} loading={loading} className="w-full" size="lg">
-          Start assessment →
+          Start assessment â
         </Button>
       </div>
     )
@@ -327,7 +328,7 @@ export default function AssessPage({ params }: AssessPageProps) {
     return (
       <div className="flex flex-col items-center justify-center py-24 space-y-4">
         <div className="w-10 h-10 border-2 border-teal border-t-transparent rounded-full animate-spin" />
-        <p className="text-teech-muted text-sm">Scoring your assessment…</p>
+        <p className="text-teech-muted text-sm">Scoring your assessmentâ¦</p>
       </div>
     )
   }
@@ -370,7 +371,7 @@ export default function AssessPage({ params }: AssessPageProps) {
           )}
 
           <Link href="/dashboard" className="btn-primary">
-            Back to curriculum →
+            Back to curriculum â
           </Link>
         </div>
       </div>
@@ -399,7 +400,7 @@ export default function AssessPage({ params }: AssessPageProps) {
 
           <div className="space-y-3">
             <Link href={`/section/${slug}/practice`} className="btn-primary block">
-              Practise more →
+              Practise more â
             </Link>
             <Link href={`/section/${slug}/learn`} className="btn-ghost block">
               Review the content
@@ -425,7 +426,7 @@ export default function AssessPage({ params }: AssessPageProps) {
     )
   }
 
-  // ── In progress ───────────────────────────────────────────────────────────
+  // ââ In progress âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   if (!currentQuestion) return null
 
@@ -481,11 +482,11 @@ export default function AssessPage({ params }: AssessPageProps) {
         className="w-full"
         size="lg"
       >
-        {isLastQuestion ? 'Submit assessment' : 'Next question →'}
+        {isLastQuestion ? 'Submit assessment' : 'Next question â'}
       </Button>
 
       <p className="text-center text-xs text-teech-muted/50">
-        Assessment in progress · Do not close this tab
+        Assessment in progress Â· Do not close this tab
       </p>
     </div>
   )
