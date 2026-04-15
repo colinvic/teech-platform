@@ -1,6 +1,8 @@
 // @ts-nocheck
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -78,7 +80,7 @@ export default function ParentRegisterPage() {
             error={error ?? undefined}
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Create account Ã¢ÂÂ
+            Create account ÃÂ¢ÃÂÃÂ
           </Button>
         </form>
       </div>
@@ -115,7 +117,7 @@ export default function ParentRegisterPage() {
         )}
 
         <Button type="submit" loading={loading} className="w-full" size="lg">
-          Create parent account Ã¢ÂÂ
+          Create parent account ÃÂ¢ÃÂÃÂ
         </Button>
       </form>
 
