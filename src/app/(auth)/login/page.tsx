@@ -1,7 +1,9 @@
 // @ts-nocheck
 'use client'
 
-import { useState } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { Suspense, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createBrowserClient } from '@/lib/supabase'
@@ -89,7 +91,7 @@ export default function LoginPage() {
             error={error ?? undefined}
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Send login code â
+            Send login code Ã¢ÂÂ
           </Button>
         </form>
       ) : (
@@ -109,14 +111,14 @@ export default function LoginPage() {
             hint="Code expires in 10 minutes"
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Log in â
+            Log in Ã¢ÂÂ
           </Button>
           <button
             type="button"
             className="w-full text-sm text-teech-muted hover:text-teal transition-colors"
             onClick={() => { setStep('email'); setError(null); setOtp('') }}
           >
-            Back â use a different email
+            Back Ã¢ÂÂ use a different email
           </button>
         </form>
       )}
