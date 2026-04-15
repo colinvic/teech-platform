@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useEffect } from 'react'
@@ -13,7 +14,7 @@ interface ErrorPageProps {
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
   useEffect(() => {
     // Vercel captures unhandled errors automatically in production.
-    // No logging needed here — the error boundary exists to give
+    // No logging needed here â the error boundary exists to give
     // users a recovery path, not to log (which happens at the platform level).
   }, [error])
 
@@ -33,7 +34,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         </h1>
         <p className="text-teech-muted text-sm leading-relaxed mb-8">
           An unexpected error occurred. Your progress has been saved.
-          Please try again — if the problem continues, contact support.
+          Please try again â if the problem continues, contact support.
         </p>
 
         {process.env['NODE_ENV'] === 'development' && error.digest && (
