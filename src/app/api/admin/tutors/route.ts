@@ -59,7 +59,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     .order('created_at', { ascending: true })
 
   if (error) {
-    logger.error('admin.tutors.get', { error: error.message })
+    logger.error('admin.tutors.get', error.message)
     return NextResponse.json({ success: false, error: 'Failed to fetch tutors' }, { status: 500 })
   }
 
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     .eq('profile_id', tutorId)
 
   if (error) {
-    logger.error('admin.tutors.post', { error: error.message })
+    logger.error('admin.tutors.post', error.message)
     return NextResponse.json({ success: false, error: 'Update failed' }, { status: 500 })
   }
 
