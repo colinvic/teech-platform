@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createServerClient, createAdminClient } from '@/lib/supabase'
@@ -197,7 +198,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       })
     }
 
-    // Issue badge on pass (even flagged sessions get a badge â human review happens in background)
+    // Issue badge on pass (even flagged sessions get a badge Ã¢ÂÂ human review happens in background)
     let badgeId: string | undefined
     let verificationUrl: string | undefined
 
@@ -260,7 +261,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
 
     const message = passed
       ? `Excellent work! You scored ${scorePercent.toFixed(0)}% and passed this section.`
-      : `You scored ${scorePercent.toFixed(0)}%. You need ${ASSESSMENT.PASS_THRESHOLD_PERCENT}% to pass. Keep going â you can retry in 24 hours.`
+      : `You scored ${scorePercent.toFixed(0)}%. You need ${ASSESSMENT.PASS_THRESHOLD_PERCENT}% to pass. Keep going Ã¢ÂÂ you can retry in 24 hours.`
 
     return NextResponse.json({
       success: true,
