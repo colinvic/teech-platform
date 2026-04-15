@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { createServerClient, createAdminClient } from '@/lib/supabase'
 import { logger } from '@/lib/logger'
 
-export type TutorAdminRow = {
+"export type TutorAdminRow = {
   id: string
   profile_id: string
   status: string
@@ -16,7 +16,13 @@ export type TutorAdminRow = {
   wwc_expiry: string | null
   wwc_state: string | null
   wwc_number: string | null
+  terms_accepted_at: string | null
+  bio: string | null
+  subjects: string[]
+  year_levels: number[]
+  created_at: string
   profiles: { full_name: string; email: string } | null
+}" | null
 }
 
 async function requireAdmin(req: NextRequest) {
