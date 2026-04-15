@@ -91,7 +91,7 @@ function LoginPage() {
             error={error ?? undefined}
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Send login code ÃÂ¢ÃÂÃÂ
+            Send login code ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ
           </Button>
         </form>
       ) : (
@@ -111,14 +111,14 @@ function LoginPage() {
             hint="Code expires in 10 minutes"
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Log in ÃÂ¢ÃÂÃÂ
+            Log in ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ
           </Button>
           <button
             type="button"
             className="w-full text-sm text-teech-muted hover:text-teal transition-colors"
             onClick={() => { setStep('email'); setError(null); setOtp('') }}
           >
-            Back ÃÂ¢ÃÂÃÂ use a different email
+            Back ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ use a different email
           </button>
         </form>
       )}
