@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import type { TutorAdminRow } from '@/app/api/admin/tutors/route'
 
-// Ã¢ÂÂÃ¢ÂÂ Status badge Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Status badge ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function StatusPill({ value }: { value: string }) {
   const map: Record<string, string> = {
     pending:   'bg-amber-100 text-amber-800',
@@ -18,7 +18,7 @@ function StatusPill({ value }: { value: string }) {
   )
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Tick / cross icon Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Tick / cross icon ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function Verified({ ok }: { ok: boolean }) {
   return ok ? (
     <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 text-green-500">
@@ -31,7 +31,7 @@ function Verified({ ok }: { ok: boolean }) {
   )
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Tutor detail drawer Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Tutor detail drawer ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function TutorDrawer({
   tutor,
   onAction,
@@ -92,9 +92,9 @@ function TutorDrawer({
               { label: 'KYC (Stripe Identity)',      ok: tutor.kyc_verified },
               { label: 'WWC check verified',          ok: tutor.wwc_verified },
               { label: 'Stripe Connect complete',     ok: tutor.stripe_onboarding_complete },
-              { label: 'Terms accepted',              ok: !!tutor.terms_accepted_at },
-              { label: 'Bio entered',                 ok: !!tutor.bio },
-              { label: 'Subjects selected',           ok: tutor.subjects.length > 0 },
+              { label: 'Terms accepted',              ok: !!tutor.terms_accepted_at??null },
+              { label: 'Bio entered',                 ok: !!tutor.bio??null },
+              { label: 'Subjects selected',           ok: (tutor.subjects?.length??0) > 0 },
             ].map(({ label, ok }) => (
               <div key={label} className="flex items-center gap-2.5 text-sm">
                 <Verified ok={ok} />
@@ -109,16 +109,16 @@ function TutorDrawer({
             <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 space-y-1.5 text-sm">
               <div className="flex justify-between">
                 <span className="text-neutral-500">Number</span>
-                <span className="font-mono font-medium text-neutral-800">{tutor.wwc_number ?? 'Ã¢ÂÂ'}</span>
+                <span className="font-mono font-medium text-neutral-800">{tutor.wwc_number ?? 'ÃÂ¢ÃÂÃÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">State</span>
-                <span className="font-medium text-neutral-800">{tutor.wwc_state ?? 'Ã¢ÂÂ'}</span>
+                <span className="font-medium text-neutral-800">{tutor.wwc_state ?? 'ÃÂ¢ÃÂÃÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Expiry</span>
                 <span className={`font-medium ${isExpiringSoon ? 'text-amber-600' : 'text-neutral-800'}`}>
-                  {expiryDate ?? 'Ã¢ÂÂ'}{isExpiringSoon ? ' Ã¢ÂÂ expiring soon' : ''}
+                  {expiryDate ?? 'ÃÂ¢ÃÂÃÂ'}{isExpiringSoon ? ' ÃÂ¢ÃÂÃÂ expiring soon' : ''}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -136,7 +136,7 @@ function TutorDrawer({
                   onClick={() => act('verify_wwc')}
                   className="rounded-lg bg-green-600 px-3 py-2 text-xs font-medium text-white hover:bg-green-700 disabled:opacity-40 transition-colors"
                 >
-                  {loading === 'verify_wwc' ? 'VerifyingÃ¢ÂÂ¦' : 'Mark WWC verified'}
+                  {loading === 'verify_wwc' ? 'VerifyingÃÂ¢ÃÂÃÂ¦' : 'Mark WWC verified'}
                 </button>
               ) : (
                 <button
@@ -169,26 +169,26 @@ function TutorDrawer({
             <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 text-sm space-y-1.5">
               <div className="flex justify-between">
                 <span className="text-neutral-500">Subjects</span>
-                <span className="text-neutral-800">{tutor.subjects.join(', ') || 'Ã¢ÂÂ'}</span>
+                <span className="text-neutral-800">{(tutor.subjects??[]).join(', ') || 'ÃÂ¢ÃÂÃÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Year levels</span>
-                <span className="text-neutral-800">{tutor.year_levels.sort((a,b)=>a-b).join(', ') || 'Ã¢ÂÂ'}</span>
+                <span className="text-neutral-800">{(tutor.year_levels??[]).sort((a,b)=>a-b).join(', ') || 'ÃÂ¢ÃÂÃÂ'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Rate</span>
                 <span className="text-neutral-800">
-                  {tutor.hourly_rate_cents ? `$${(tutor.hourly_rate_cents / 100).toFixed(0)}/hr` : 'Ã¢ÂÂ'}
+                  {tutor.hourly_rate_cents ? `$${(tutor.hourly_rate_cents / 100).toFixed(0)}/hr` : 'ÃÂ¢ÃÂÃÂ'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Sessions</span>
                 <span className="text-neutral-800">{tutor.session_count}</span>
               </div>
-              {tutor.bio && (
+              {tutor.bio??null && (
                 <div className="pt-1">
                   <p className="text-neutral-500">Bio</p>
-                  <p className="mt-1 text-neutral-700 leading-relaxed">{tutor.bio}</p>
+                  <p className="mt-1 text-neutral-700 leading-relaxed">{tutor.bio??null}</p>
                 </div>
               )}
             </div>
@@ -197,7 +197,7 @@ function TutorDrawer({
           {/* Admin note */}
           <div>
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-neutral-400" htmlFor="admin-note">
-              Admin note (optional Ã¢ÂÂ logged)
+              Admin note (optional ÃÂ¢ÃÂÃÂ logged)
             </label>
             <textarea
               id="admin-note"
@@ -220,7 +220,7 @@ function TutorDrawer({
                   disabled={loading === 'approve' || !tutor.wwc_verified || !tutor.stripe_onboarding_complete}
                   className="btn-primary w-full disabled:opacity-40"
                 >
-                  {loading === 'approve' ? 'ApprovingÃ¢ÂÂ¦' : 'Approve tutor Ã¢ÂÂ go live'}
+                  {loading === 'approve' ? 'ApprovingÃÂ¢ÃÂÃÂ¦' : 'Approve tutor ÃÂ¢ÃÂÃÂ go live'}
                 </button>
                 {(!tutor.wwc_verified || !tutor.stripe_onboarding_complete) && (
                   <p className="text-center text-xs text-amber-600">
@@ -234,7 +234,7 @@ function TutorDrawer({
                   disabled={loading === 'reject'}
                   className="w-full rounded-xl border border-red-300 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors disabled:opacity-40"
                 >
-                  {loading === 'reject' ? 'RejectingÃ¢ÂÂ¦' : 'Reject application'}
+                  {loading === 'reject' ? 'RejectingÃÂ¢ÃÂÃÂ¦' : 'Reject application'}
                 </button>
               </>
             )}
@@ -246,7 +246,7 @@ function TutorDrawer({
                 disabled={loading === 'suspend'}
                 className="w-full rounded-xl border border-amber-300 py-3 text-sm font-medium text-amber-700 hover:bg-amber-50 transition-colors disabled:opacity-40"
               >
-                {loading === 'suspend' ? 'SuspendingÃ¢ÂÂ¦' : 'Suspend tutor'}
+                {loading === 'suspend' ? 'SuspendingÃÂ¢ÃÂÃÂ¦' : 'Suspend tutor'}
               </button>
             )}
 
@@ -257,7 +257,7 @@ function TutorDrawer({
                 disabled={loading === 'approve' || !tutor.wwc_verified}
                 className="btn-primary w-full disabled:opacity-40"
               >
-                {loading === 'approve' ? 'ReactivatingÃ¢ÂÂ¦' : 'Reactivate tutor'}
+                {loading === 'approve' ? 'ReactivatingÃÂ¢ÃÂÃÂ¦' : 'Reactivate tutor'}
               </button>
             )}
           </div>
@@ -267,7 +267,7 @@ function TutorDrawer({
   )
 }
 
-// Ã¢ÂÂÃ¢ÂÂ State-specific WWC register URLs Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ State-specific WWC register URLs ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function wwcVerifyUrl(state: string, number: string): string | null {
   const urls: Record<string, string> = {
     WA:  'https://workingwithchildren.wa.gov.au/employers/checking-a-card',
@@ -282,7 +282,7 @@ function wwcVerifyUrl(state: string, number: string): string | null {
   return urls[state] ?? null
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Main page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Main page ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 const STATUS_TABS = [
   { value: 'pending',   label: 'Pending review' },
   { value: 'active',    label: 'Active' },
@@ -412,7 +412,7 @@ export default function AdminTutorsPage() {
                   </div>
                   <p className="mt-0.5 text-sm text-neutral-500">{tutor.profiles?.email ?? ''}</p>
                   <p className="mt-1 text-xs text-neutral-400">
-                    Registered {new Date(tutor.created_at).toLocaleDateString('en-AU', {
+                    Registered {new Date(tutor.created_at??'').toLocaleDateString('en-AU', {
                       day: 'numeric', month: 'short', year: 'numeric'
                     })}
                   </p>
@@ -436,9 +436,9 @@ export default function AdminTutorsPage() {
                 </div>
               </div>
 
-              {tutor.subjects.length > 0 && (
+              {(tutor.subjects?.length??0) > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1">
-                  {tutor.subjects.slice(0, 3).map((s) => (
+                  {(tutor.subjects??[]).slice(0, 3).map((s) => (
                     <span key={s} className="rounded-full bg-teal-50 px-2 py-0.5 text-xs text-brand-teal">
                       {s}
                     </span>
