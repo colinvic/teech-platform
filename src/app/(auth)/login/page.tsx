@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input'
 
 type Step = 'email' | 'otp'
 
-export default function LoginPage() {
+function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectTo = searchParams.get('redirectTo') ?? '/dashboard'
@@ -91,7 +91,7 @@ export default function LoginPage() {
             error={error ?? undefined}
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Send login code Ã¢ÂÂ
+            Send login code ÃÂ¢ÃÂÃÂ
           </Button>
         </form>
       ) : (
@@ -111,14 +111,14 @@ export default function LoginPage() {
             hint="Code expires in 10 minutes"
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Log in Ã¢ÂÂ
+            Log in ÃÂ¢ÃÂÃÂ
           </Button>
           <button
             type="button"
             className="w-full text-sm text-teech-muted hover:text-teal transition-colors"
             onClick={() => { setStep('email'); setError(null); setOtp('') }}
           >
-            Back Ã¢ÂÂ use a different email
+            Back ÃÂ¢ÃÂÃÂ use a different email
           </button>
         </form>
       )}
