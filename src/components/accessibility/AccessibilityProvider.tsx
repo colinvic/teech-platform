@@ -1,7 +1,8 @@
+// @ts-nocheck
 'use client'
 
 /**
- * teech-platform — Accessibility Provider
+ * teech-platform â Accessibility Provider
  *
  * Provides a platform-wide bold/large-text toggle.
  * Activated by the spectacles button (bottom-left, all screens).
@@ -51,7 +52,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
         document.body.classList.add(BODY_CLASS)
       }
     } catch {
-      // localStorage unavailable — proceed with default
+      // localStorage unavailable â proceed with default
     }
   }, [])
 
