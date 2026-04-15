@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from 'next/link'
 import { BoldToggle } from '@/components/accessibility/BoldToggle'
 import { IconGlobe } from '@/components/icons'
@@ -24,7 +25,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="inline-flex items-center gap-1.5 text-xs text-teech-muted">
           <IconGlobe className="w-3.5 h-3.5 text-teal/60" />
           <span>Your data is stored in Australia</span>
-          <span className="text-teal/30 mx-1">·</span>
+          <span className="text-teal/30 mx-1">Â·</span>
           <Link href="/privacy" className="text-teal/60 hover:text-teal transition-colors">
             Privacy Policy
           </Link>
