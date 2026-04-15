@@ -1,6 +1,8 @@
 // @ts-nocheck
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -21,7 +23,7 @@ function StarPicker({ value, onChange }: { value: number; onChange: (v: number) 
             type="button"
             role="radio"
             aria-checked={value === i}
-            aria-label={`${i} star${i !== 1 ? 's' : ''} â ${LABELS[i]}`}
+            aria-label={`${i} star${i !== 1 ? 's' : ''} Ã¢ÂÂ ${LABELS[i]}`}
             onClick={() => onChange(i)}
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(0)}
@@ -139,7 +141,7 @@ export default function ReviewPage({ params }: Props) {
             disabled={submitting || rating === 0}
             className="btn-primary w-full disabled:opacity-40"
           >
-            {submitting ? 'Submittingâ¦' : 'Submit review'}
+            {submitting ? 'SubmittingÃ¢ÂÂ¦' : 'Submit review'}
           </button>
           <button
             type="button"
