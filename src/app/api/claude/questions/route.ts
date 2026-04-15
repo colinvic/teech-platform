@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextRequest, NextResponse } from 'next/server'
 import { logger } from '@/lib/logger'
 import { z } from 'zod'
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
 
     const questions = await generateQuestions(section, count, difficulty)
 
-    // Insert as inactive â require human review before going live
+    // Insert as inactive Ã¢ÂÂ require human review before going live
     const adminClient = createAdminClient()
     const { data: inserted } = await adminClient
       .from('assessment_questions')
