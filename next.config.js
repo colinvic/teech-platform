@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   // Strict mode for better development experience and catching issues early
   reactStrictMode: true,
 
-  // Security headers — applied to every response
+  // Security headers â applied to every response
   async headers() {
     return [
       {
@@ -15,9 +18,9 @@ const nextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           // XSS protection
           { key: 'X-XSS-Protection', value: '1; mode=block' },
-          // Referrer policy — don't leak URLs
+          // Referrer policy â don't leak URLs
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          // Permissions policy — restrict browser features
+          // Permissions policy â restrict browser features
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(self), geolocation=(), payment=(self)',
@@ -37,7 +40,7 @@ const nextConfig = {
               "base-uri 'self'",
             ].join('; '),
           },
-          // HSTS — force HTTPS
+          // HSTS â force HTTPS
           {
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
@@ -47,7 +50,7 @@ const nextConfig = {
     ]
   },
 
-  // Image optimisation — allow Supabase storage
+  // Image optimisation â allow Supabase storage
   images: {
     remotePatterns: [
       {
