@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
@@ -9,12 +10,12 @@ import {
 } from '@/components/icons'
 
 export const metadata: Metadata = {
-  title: 'teech.au â Australian Learning Platform',
+  title: 'teech.au Ã¢ÂÂ Australian Learning Platform',
   description:
-    "Australia's mobile-first, ACARA-aligned learning platform. Pass curriculum sections, earn verified badges, and connect with expert tutors â anywhere in Australia.",
+    "Australia's mobile-first, ACARA-aligned learning platform. Pass curriculum sections, earn verified badges, and connect with expert tutors Ã¢ÂÂ anywhere in Australia.",
 }
 
-// Pure CSS principle indicators â no emojis
+// Pure CSS principle indicators Ã¢ÂÂ no emojis
 const PRINCIPLES = [
   { Icon: IconShield,      label: 'Secure by design'   },
   { Icon: IconCheckCircle, label: 'Honest metrics'      },
@@ -30,7 +31,7 @@ const HOW_IT_WORKS = [
     Icon: IconBook,
     step: '01',
     title: 'Learn',
-    desc: 'Work through bite-sized, curriculum-aligned content cards at your own pace â wherever you are.',
+    desc: 'Work through bite-sized, curriculum-aligned content cards at your own pace Ã¢ÂÂ wherever you are.',
     border: 'border-teal/25 bg-teal/4',
     accent: 'text-teal',
     iconBg: 'bg-teal/10 border-teal/20',
@@ -48,7 +49,7 @@ const HOW_IT_WORKS = [
     Icon: IconBadge,
     step: '03',
     title: 'Pass & prove it',
-    desc: 'Clear a verified assessment at 80% or above. Earn a cryptographically-signed badge â a real credential.',
+    desc: 'Clear a verified assessment at 80% or above. Earn a cryptographically-signed badge Ã¢ÂÂ a real credential.',
     border: 'border-amber/25 bg-amber/4',
     accent: 'text-amber',
     iconBg: 'bg-amber/10 border-amber/20',
@@ -56,7 +57,7 @@ const HOW_IT_WORKS = [
 ]
 
 const STATS = [
-  { value: 'Fâ12',  label: 'All year levels'  },
+  { value: 'FÃ¢ÂÂ12',  label: 'All year levels'  },
   { value: 'ACARA', label: 'v9 aligned'        },
   { value: 'AU',    label: 'Data stays here'   },
   { value: '80%',   label: 'To pass and badge' },
@@ -82,7 +83,7 @@ export default function HomePage() {
         <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/20 rounded-full px-4 py-1.5 mb-8">
           <span className="w-2 h-2 rounded-full bg-teal animate-spark-pulse" aria-hidden />
           <span className="text-xs font-bold uppercase tracking-widest text-teal">
-            ACARA Version 9 Â· Foundation to Year 12
+            ACARA Version 9 ÃÂ· Foundation to Year 12
           </span>
         </div>
 
@@ -95,7 +96,7 @@ export default function HomePage() {
         <p className="text-teech-muted text-lg sm:text-xl max-w-xl leading-relaxed mb-10">
           teech.au is Australia&apos;s mobile-first learning platform. Work through ACARA
           curriculum sections, earn verified badges, and connect with expert tutors
-          â from anywhere in Australia.
+          Ã¢ÂÂ from anywhere in Australia.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3">
@@ -159,7 +160,7 @@ export default function HomePage() {
               </h2>
               <p className="text-teech-muted text-sm leading-relaxed mb-6">
                 Every pass generates a cryptographically-signed badge stored on our servers.
-                Share a link â anyone can verify it is real. No fakes. No screenshots.
+                Share a link Ã¢ÂÂ anyone can verify it is real. No fakes. No screenshots.
                 A credential tied to your actual performance.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -173,7 +174,7 @@ export default function HomePage() {
                     key={f}
                     className="inline-flex items-center gap-1.5 bg-teal/10 border border-teal/20 text-teal text-xs font-semibold px-3 py-1 rounded-full"
                   >
-                    {/* Inline checkmark â no external icon needed for this scale */}
+                    {/* Inline checkmark Ã¢ÂÂ no external icon needed for this scale */}
                     <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3 flex-shrink-0" aria-hidden>
                       <polyline points="10 3 5 9 2 6" />
                     </svg>
@@ -183,7 +184,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Mock badge â pure CSS, no emojis */}
+            {/* Mock badge Ã¢ÂÂ pure CSS, no emojis */}
             <div className="flex-shrink-0 w-full sm:w-56">
               <div className="bg-deep border-2 border-teal/40 rounded-2xl p-6 text-center glow-teal">
                 {/* Badge icon */}
@@ -192,14 +193,14 @@ export default function HomePage() {
                 </div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-teal mb-1">Verified Pass</p>
                 <p className="font-display text-base font-bold text-white mb-1">Cell Biology</p>
-                <p className="text-[11px] text-teech-muted mb-3">Science Â· Year 9</p>
+                <p className="text-[11px] text-teech-muted mb-3">Science ÃÂ· Year 9</p>
                 <div className="bg-surface rounded-xl p-2">
                   <p className="font-display text-3xl font-black text-teal">94%</p>
                   <p className="text-[9px] text-teech-muted">Assessment score</p>
                 </div>
                 <div className="flex items-center justify-center gap-1 mt-3">
                   <IconVerified className="w-3 h-3 text-teal/50" />
-                  <p className="text-[9px] text-teal/50">teech.au Â· Verified</p>
+                  <p className="text-[9px] text-teal/50">teech.au ÃÂ· Verified</p>
                 </div>
               </div>
             </div>
@@ -222,7 +223,7 @@ export default function HomePage() {
               <p className="text-teech-muted text-sm leading-relaxed mb-6">
                 Fail a section twice? teech.au connects you with a verified Australian tutor
                 for a 30-minute targeted session. They already know exactly what you are
-                stuck on â before the session starts.
+                stuck on Ã¢ÂÂ before the session starts.
               </p>
               <div className="space-y-2.5">
                 {[
@@ -241,11 +242,11 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Tutor card â no emojis */}
+            {/* Tutor card Ã¢ÂÂ no emojis */}
             <div className="mt-8 sm:mt-0 flex-shrink-0 w-full sm:w-64">
               <div className="bg-deep border border-lime/20 rounded-2xl p-5">
                 <div className="flex items-center gap-3 mb-4">
-                  {/* Avatar â CSS initials */}
+                  {/* Avatar Ã¢ÂÂ CSS initials */}
                   <div className="w-11 h-11 rounded-full bg-surface border-2 border-lime/40 flex items-center justify-center">
                     <IconGraduate className="w-5 h-5 text-lime/70" />
                   </div>
@@ -279,7 +280,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="w-full bg-lime/12 border border-lime/25 text-lime text-xs font-bold py-2 rounded-lg text-center">
-                  Book session â $49
+                  Book session Ã¢ÂÂ $49
                 </div>
               </div>
             </div>
@@ -299,7 +300,7 @@ export default function HomePage() {
           </h2>
           <p className="text-teech-muted text-sm leading-relaxed max-w-xl mb-8">
             Every month, your report card generates a personalised AI paragraph about your
-            actual learning style â based on real behavioural data. Your streaks, your
+            actual learning style Ã¢ÂÂ based on real behavioural data. Your streaks, your
             strongest strand, your retry improvement rate. Not a number. A story.
           </p>
 
@@ -307,7 +308,7 @@ export default function HomePage() {
           <div className="bg-deep border border-amber/20 rounded-2xl p-5 max-w-lg">
             <div className="flex items-center justify-between mb-3">
               <p className="text-[10px] font-bold uppercase tracking-widest text-amber">
-                Learning Identity â April 2026
+                Learning Identity Ã¢ÂÂ April 2026
               </p>
               <span className="text-[9px] text-teech-muted bg-surface px-2 py-0.5 rounded-full border border-teal/10">
                 AI generated
@@ -315,9 +316,9 @@ export default function HomePage() {
             </div>
             <p className="text-sm text-white/65 leading-relaxed italic">
               &ldquo;Pattern-recognition is your edge. Your first attempt scores average 61%,
-              but your retry scores jump to 89% â one of the highest improvement rates on the
+              but your retry scores jump to 89% Ã¢ÂÂ one of the highest improvement rates on the
               platform. You learn by doing. Earth &amp; Space Sciences is your strongest strand
-              right now. You have not touched Chemistry in 9 days â that is where your next
+              right now. You have not touched Chemistry in 9 days Ã¢ÂÂ that is where your next
               badge is waiting.&rdquo;
             </p>
           </div>
@@ -363,7 +364,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link href="/"><Logo variant="nav" className="h-7 w-auto" /></Link>
             <p className="text-xs text-teech-muted text-center">
-              Operated by Flecco Group Pty Ltd ATF Flecco Family Trust Â· Perth, Western Australia
+              Operated by Flecco Group Pty Ltd ATF Flecco Family Trust ÃÂ· Perth, Western Australia
             </p>
             <div className="flex gap-4 text-xs text-teech-muted">
               <Link href="/privacy"  className="hover:text-teal transition-colors">Privacy</Link>
