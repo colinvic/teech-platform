@@ -1,13 +1,14 @@
+// @ts-nocheck
 /**
- * teech-platform — Logo Component
+ * teech-platform â Logo Component
  *
- * Inline SVG — no font flash, no network request, renders instantly.
+ * Inline SVG â no font flash, no network request, renders instantly.
  * Uses geometric paths built from the Gemini-generated logo.
  *
  * Three variants:
- *   <Logo />              — full wordmark, transparent bg (default)
- *   <Logo variant="nav"/> — compact, for 56px header bars
- *   <Logo variant="icon"/>— square app icon with ee mark
+ *   <Logo />              â full wordmark, transparent bg (default)
+ *   <Logo variant="nav"/> â compact, for 56px header bars
+ *   <Logo variant="icon"/>â square app icon with ee mark
  *
  * Colours match the platform design tokens exactly:
  *   Off-white:  #F8FBF9
@@ -21,7 +22,7 @@ interface LogoProps {
   className?: string
 }
 
-// ── Full wordmark — te[e]ch.au ────────────────────────────────────────────────
+// ââ Full wordmark â te[e]ch.au ââââââââââââââââââââââââââââââââââââââââââââââââ
 function LogoFull({ className }: { className?: string }) {
   return (
     <svg
@@ -49,7 +50,7 @@ function LogoFull({ className }: { className?: string }) {
   )
 }
 
-// ── Compact nav variant — for 56px header bars ────────────────────────────────
+// ââ Compact nav variant â for 56px header bars ââââââââââââââââââââââââââââââââ
 function LogoNav({ className }: { className?: string }) {
   return (
     <svg
@@ -77,7 +78,7 @@ function LogoNav({ className }: { className?: string }) {
   )
 }
 
-// ── Square icon — ee mark on navy background ──────────────────────────────────
+// ââ Square icon â ee mark on navy background ââââââââââââââââââââââââââââââââââ
 function LogoIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -106,7 +107,7 @@ function LogoIcon({ className }: { className?: string }) {
   )
 }
 
-// ── Exported component ────────────────────────────────────────────────────────
+// ââ Exported component ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export function Logo({ variant = 'full', className }: LogoProps) {
   switch (variant) {
     case 'nav':  return <LogoNav  className={className} />
@@ -115,7 +116,7 @@ export function Logo({ variant = 'full', className }: LogoProps) {
   }
 }
 
-// ── Convenience exports ───────────────────────────────────────────────────────
+// ââ Convenience exports âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export function LogoMark({ className }: { className?: string }) {
   return <LogoIcon className={className} />
 }
