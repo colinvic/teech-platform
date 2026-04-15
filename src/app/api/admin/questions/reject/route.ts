@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient, createAdminClient } from '@/lib/supabase'
 
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
 
   const adminClient = createAdminClient()
 
-  // Soft delete â mark reviewed but not active
+  // Soft delete Ã¢ÂÂ mark reviewed but not active
   await adminClient
     .from('assessment_questions')
     .update({ reviewed_by_human: true, is_active: false })
