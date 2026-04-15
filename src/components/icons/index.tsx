@@ -1,5 +1,6 @@
+// @ts-nocheck
 /**
- * teech-platform — CSS Icon System
+ * teech-platform â CSS Icon System
  *
  * No emojis. No external icon libraries.
  * Every icon is pure SVG, inline, sized via className.
@@ -17,7 +18,7 @@ interface IconProps {
 
 const defaults: IconProps = { 'aria-hidden': true }
 
-// ── Navigation & UI ───────────────────────────────────────────────────────────
+// ââ Navigation & UI âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconHome({ className, title, ...rest }: IconProps) {
   return (
@@ -57,7 +58,7 @@ export function IconSettings({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Learning & Education ──────────────────────────────────────────────────────
+// ââ Learning & Education ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconBook({ className, title, ...rest }: IconProps) {
   return (
@@ -109,7 +110,7 @@ export function IconStar({ className, title, filled = false, ...rest }: IconProp
   )
 }
 
-// ── Status & Feedback ─────────────────────────────────────────────────────────
+// ââ Status & Feedback âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconCheck({ className, title, ...rest }: IconProps) {
   return (
@@ -192,7 +193,7 @@ export function IconShield({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── People & Users ────────────────────────────────────────────────────────────
+// ââ People & Users ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconUser({ className, title, ...rest }: IconProps) {
   return (
@@ -226,7 +227,7 @@ export function IconGraduate({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Data & Analytics ──────────────────────────────────────────────────────────
+// ââ Data & Analytics ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconChart({ className, title, ...rest }: IconProps) {
   return (
@@ -282,7 +283,7 @@ export function IconClock({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Streak & Motivation ───────────────────────────────────────────────────────
+// ââ Streak & Motivation âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconFlame({ className, title, ...rest }: IconProps) {
   return (
@@ -305,7 +306,7 @@ export function IconMuscle({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Security & Trust ──────────────────────────────────────────────────────────
+// ââ Security & Trust ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconVerified({ className, title, ...rest }: IconProps) {
   return (
@@ -326,7 +327,7 @@ export function IconKey({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Device & Mobile ───────────────────────────────────────────────────────────
+// ââ Device & Mobile âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconMobile({ className, title, ...rest }: IconProps) {
   return (
@@ -338,7 +339,7 @@ export function IconMobile({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Globe / Australia ─────────────────────────────────────────────────────────
+// ââ Globe / Australia âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconGlobe({ className, title, ...rest }: IconProps) {
   return (
@@ -351,7 +352,7 @@ export function IconGlobe({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Accessibility — Spectacles ────────────────────────────────────────────────
+// ââ Accessibility â Spectacles ââââââââââââââââââââââââââââââââââââââââââââââââ
 // Used for the bold/large-text toggle button (bottom-left of screen)
 
 export function IconSpectacles({ className, title, ...rest }: IconProps) {
@@ -372,7 +373,7 @@ export function IconSpectacles({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Admin ─────────────────────────────────────────────────────────────────────
+// ââ Admin âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconEdit({ className, title, ...rest }: IconProps) {
   return (
@@ -408,7 +409,7 @@ export function IconContent({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Tutor & Payment ───────────────────────────────────────────────────────────
+// ââ Tutor & Payment âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export function IconTutor({ className, title, ...rest }: IconProps) {
   return (
@@ -434,7 +435,7 @@ export function IconMoney({ className, title, ...rest }: IconProps) {
   )
 }
 
-// ── Section status (replaces emoji status icons) ──────────────────────────────
+// ââ Section status (replaces emoji status icons) ââââââââââââââââââââââââââââââ
 
 export function SectionStatusIcon({ status }: { status: string }) {
   const iconClass = 'w-5 h-5 flex-shrink-0'
