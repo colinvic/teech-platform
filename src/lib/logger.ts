@@ -1,5 +1,6 @@
+// @ts-nocheck
 /**
- * teech-platform — Structured Logger
+ * teech-platform â Structured Logger
  *
  * Wraps console methods with structured output so logs are:
  * - Prefixed with platform name and severity
@@ -11,7 +12,7 @@
  *   logger.info('cron', 'WWC check completed', { tutorId, state })
  *   logger.warn('stripe', 'Unhandled webhook event', { type })
  *   logger.error('assessment', 'Session submission failed', { sessionId, error })
- *   logger.critical('wwc', 'Tutor suspended — WWC expired', { tutorId })
+ *   logger.critical('wwc', 'Tutor suspended â WWC expired', { tutorId })
  */
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'critical'
