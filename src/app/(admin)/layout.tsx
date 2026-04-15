@@ -1,4 +1,5 @@
 // @ts-nocheck
+export const dynamic = 'force-dynamic'
 import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase'
 
