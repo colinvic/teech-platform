@@ -22,6 +22,7 @@ import { logger } from '@/lib/logger'
   year_levels: number[]
   created_at: string
   profiles: { full_name: string; email: string } | null
+} | null
 }" | null
 }
 
