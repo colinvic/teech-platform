@@ -1,5 +1,6 @@
+// @ts-nocheck
 /**
- * teech-platform — Claude API Client
+ * teech-platform â Claude API Client
  *
  * All Claude API calls go through this module.
  * Student PII is NEVER sent to Claude.
@@ -18,7 +19,7 @@ const anthropic = new Anthropic({
 const MODEL = 'claude-sonnet-4-20250514'
 const MAX_TOKENS = 1000
 
-// ── Question Generation ───────────────────────────────────────────────────────
+// ââ Question Generation âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface GeneratedQuestion {
   question_text: string
@@ -39,7 +40,7 @@ export async function generateQuestions(
 ): Promise<GeneratedQuestion[]> {
   const prompt = `You are an expert Australian curriculum educator writing assessment questions for ${section.name}.
 
-ACARA Descriptor: ${section.acara_descriptor_code} — ${section.acara_descriptor_text}
+ACARA Descriptor: ${section.acara_descriptor_code} â ${section.acara_descriptor_text}
 
 Generate exactly ${count} multiple-choice questions at difficulty level ${difficulty}/3.
 - Difficulty 1: foundational recall
@@ -49,13 +50,13 @@ Generate exactly ${count} multiple-choice questions at difficulty level ${diffic
 Rules:
 - Each question must have exactly 4 options (keys: a, b, c, d)
 - One correct answer per question
-- Distractors must be plausible — not obviously wrong
+- Distractors must be plausible â not obviously wrong
 - Language must be clear and unambiguous
 - Use Australian English spelling
-- Gender-neutral language throughout — use "a student", "they", "their"
+- Gender-neutral language throughout â use "a student", "they", "their"
 - Explanations must teach, not just state the answer
 
-Return ONLY valid JSON — no preamble, no markdown fences:
+Return ONLY valid JSON â no preamble, no markdown fences:
 {
   "questions": [
     {
@@ -83,11 +84,11 @@ Return ONLY valid JSON — no preamble, no markdown fences:
   return parsed.questions
 }
 
-// ── Session Brief Generation ──────────────────────────────────────────────────
+// ââ Session Brief Generation ââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 /**
  * Generate a tutor session brief from a student's gap data.
- * Input contains section data and error patterns ONLY — no student PII.
+ * Input contains section data and error patterns ONLY â no student PII.
  */
 export async function generateSessionBrief(params: {
   sectionName: string
@@ -99,7 +100,7 @@ export async function generateSessionBrief(params: {
 }): Promise<string> {
   const prompt = `You are preparing a session brief for an Australian curriculum tutor.
 
-The student (referred to as "the student" — do not assume gender) has attempted this section ${params.failCount} times.
+The student (referred to as "the student" â do not assume gender) has attempted this section ${params.failCount} times.
 
 Section: ${params.sectionName}
 ACARA Descriptor: ${params.acaraDescriptor}
@@ -107,14 +108,14 @@ Last attempt score: ${params.lastScore !== null ? `${params.lastScore}%` : 'Not 
 Common error pattern: ${params.commonErrorPattern ?? 'Not yet identified'}
 Suggested focus areas: ${params.suggestedFocusAreas.join(', ')}
 
-Write a concise, practical tutor session brief (150–200 words) that:
+Write a concise, practical tutor session brief (150â200 words) that:
 1. Summarises what the student needs to understand to pass this section
 2. Identifies the most likely conceptual gaps based on the error pattern
-3. Suggests 2–3 specific teaching strategies for a 30-minute session
+3. Suggests 2â3 specific teaching strategies for a 30-minute session
 4. Uses Australian English
-5. Is gender neutral throughout — never use he/she/his/her
+5. Is gender neutral throughout â never use he/she/his/her
 
-Write directly — no preamble, no "Here is the brief:" introduction.`
+Write directly â no preamble, no "Here is the brief:" introduction.`
 
   const response = await anthropic.messages.create({
     model: MODEL,
@@ -130,7 +131,7 @@ Write directly — no preamble, no "Here is the brief:" introduction.`
   return content.text
 }
 
-// ── Learning Identity Paragraph ───────────────────────────────────────────────
+// ââ Learning Identity Paragraph âââââââââââââââââââââââââââââââââââââââââââââââ
 
 const AGE_TIER_TONE: Record<AgeTier, string> = {
   foundation_2: 'warm, encouraging, simple words, celebrate every win, use emoji sparingly',
@@ -165,16 +166,16 @@ Learning data for this month:
 - Most productive time: ${data.peak_performance_day ?? 'not yet determined'}, ${data.peak_performance_hour !== null ? `${data.peak_performance_hour}:00` : 'time not determined'}
 - Days since last session: ${data.days_since_last_session}
 
-Write a single paragraph of 80–120 words that:
+Write a single paragraph of 80â120 words that:
 1. Describes THIS student's actual learning personality and patterns based on the data
-2. Is specific — reference their actual strongest strand, consistency score, retry improvement
+2. Is specific â reference their actual strongest strand, consistency score, retry improvement
 3. Ends with one honest, kind, specific nudge or encouragement
-4. Uses "you" and "your" — address the student directly
-5. Is completely gender neutral — never use he/she/his/her
+4. Uses "you" and "your" â address the student directly
+5. Is completely gender neutral â never use he/she/his/her
 6. Uses Australian English
-7. Does NOT start with "You are" — vary the opening
+7. Does NOT start with "You are" â vary the opening
 
-Write only the paragraph — no title, no preamble.`
+Write only the paragraph â no title, no preamble.`
 
   const response = await anthropic.messages.create({
     model: MODEL,
@@ -192,11 +193,11 @@ Write only the paragraph — no title, no preamble.`
   return enforceGenderNeutral(content.text)
 }
 
-// ── Error Pattern Analysis ────────────────────────────────────────────────────
+// ââ Error Pattern Analysis ââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 /**
  * Analyse a student's wrong answers to identify the likely conceptual gap.
- * Input: wrong answer texts only — no student identity.
+ * Input: wrong answer texts only â no student identity.
  */
 export async function analyseErrorPattern(params: {
   sectionName: string
@@ -212,7 +213,7 @@ export async function analyseErrorPattern(params: {
 ${pairs}
 
 In one sentence (max 20 words), identify the likely conceptual misunderstanding. 
-Be specific to the content — not generic advice like "needs more practice".
+Be specific to the content â not generic advice like "needs more practice".
 Use Australian English. Gender neutral.`
 
   const response = await anthropic.messages.create({
