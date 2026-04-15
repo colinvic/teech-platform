@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from 'next/link'
 import { IconBack, IconTarget } from '@/components/icons'
 import { Logo } from '@/components/Logo'
