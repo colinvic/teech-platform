@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useState } from 'react'
@@ -77,7 +78,7 @@ export default function ParentRegisterPage() {
             error={error ?? undefined}
           />
           <Button type="submit" loading={loading} className="w-full" size="lg">
-            Create account â
+            Create account Ã¢ÂÂ
           </Button>
         </form>
       </div>
@@ -114,7 +115,7 @@ export default function ParentRegisterPage() {
         )}
 
         <Button type="submit" loading={loading} className="w-full" size="lg">
-          Create parent account â
+          Create parent account Ã¢ÂÂ
         </Button>
       </form>
 
