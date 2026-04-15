@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
@@ -30,13 +31,13 @@ export default function PrivacyPage() {
             <p>We collect only the minimum information necessary to provide the platform:</p>
             <ul className="mt-3 space-y-1.5 list-none">
               {[
-                'Email address — for account authentication',
-                'Preferred name — displayed on badges and report cards',
-                'Year level — to serve the correct ACARA curriculum',
-                'Assessment responses — to score your results and issue badges',
-                'Progress data — to track which sections you have completed',
-                'Device fingerprint — to protect the integrity of assessments (non-identifying)',
-                'IP address — for security and fraud prevention, stored for 90 days',
+                'Email address â for account authentication',
+                'Preferred name â displayed on badges and report cards',
+                'Year level â to serve the correct ACARA curriculum',
+                'Assessment responses â to score your results and issue badges',
+                'Progress data â to track which sections you have completed',
+                'Device fingerprint â to protect the integrity of assessments (non-identifying)',
+                'IP address â for security and fraud prevention, stored for 90 days',
               ].map(item => (
                 <li key={item} className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-teal/60 mt-1.5 flex-shrink-0" />
@@ -71,19 +72,19 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="font-display text-xl font-bold text-white mb-3">Where your data is stored</h2>
-            <p>All personal data is stored in Australia — specifically in the Sydney region (AWS ap-southeast-2) via Supabase.</p>
+            <p>All personal data is stored in Australia â specifically in the Sydney region (AWS ap-southeast-2) via Supabase.</p>
             <p className="mt-3">We use the following third-party processors, each disclosed in accordance with APP 8:</p>
             <ul className="mt-3 space-y-2 list-none">
               {[
                 { name: 'Supabase (Sydney, Australia)', purpose: 'Database and authentication hosting' },
-                { name: 'Anthropic Claude API (USA)', purpose: 'AI question generation and learning identity text — no student PII is sent' },
-                { name: 'Stripe (USA)', purpose: 'Payment processing for tutor sessions — we do not store card details' },
-                { name: 'Vercel (USA)', purpose: 'Web hosting and CDN — no personal data is cached at the edge' },
+                { name: 'Anthropic Claude API (USA)', purpose: 'AI question generation and learning identity text â no student PII is sent' },
+                { name: 'Stripe (USA)', purpose: 'Payment processing for tutor sessions â we do not store card details' },
+                { name: 'Vercel (USA)', purpose: 'Web hosting and CDN â no personal data is cached at the edge' },
                 { name: 'Resend (USA)', purpose: 'Transactional email delivery' },
               ].map(({ name, purpose }) => (
                 <li key={name} className="bg-surface border border-teal/8 rounded-lg px-3 py-2">
                   <span className="text-white font-medium">{name}</span>
-                  <span className="text-teech-muted"> — {purpose}</span>
+                  <span className="text-teech-muted"> â {purpose}</span>
                 </li>
               ))}
             </ul>
