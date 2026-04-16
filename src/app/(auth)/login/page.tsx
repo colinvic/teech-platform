@@ -46,7 +46,7 @@ function LoginPageInner() {
         if (sessionError) return
         if (data?.session) {
           window.history.replaceState(null, '', window.location.pathname)
-          router.replace(redirectTo)
+          window.location.href = redirectTo
         }
       })
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,7 +81,7 @@ function LoginPageInner() {
     if (error) {
       setError(error.message)
     } else {
-      router.replace(redirectTo)
+      window.location.href = redirectTo
     }
   }
 
