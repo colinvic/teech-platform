@@ -58,7 +58,7 @@ function LoginPageInner() {
     setLoading(true)
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { shouldCreateUser: false },
+      options: { shouldCreateUser: false, emailRedirectTo: `${window.location.origin}/api/auth/callback` },
     })
     setLoading(false)
     if (error) {
