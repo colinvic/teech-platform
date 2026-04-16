@@ -114,11 +114,11 @@ function LoginPageInner() {
         ) : (
           <form onSubmit={handleOtpSubmit} className="space-y-4">
             <Input
-              label="6-digit code"
+              label="Sign-in code"
               type="text"
               inputMode="numeric"
-              pattern="[0-9]{6}"
-              maxLength={6}
+              pattern="[0-9]{6,8}"
+              maxLength={8}
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder="123456"
