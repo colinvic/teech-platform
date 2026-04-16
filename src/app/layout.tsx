@@ -3,9 +3,6 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider'
 
-
-
-
 export const metadata: Metadata = {
   title: {
     default: 'teech.au â Australian Learning Platform',
@@ -34,5 +31,21 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#090E1A',
+}
 
-
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en-AU">
+      <body className="min-h-screen bg-deep text-white antialiased font-sans">
+        <AccessibilityProvider>
+          {children}
+        </AccessibilityProvider>
+      </body>
+    </html>
+  )
+}
