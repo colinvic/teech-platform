@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * teech-platform — Test Account Seed Script
  * Run with: npx ts-node --esm scripts/seed-test-accounts.ts
