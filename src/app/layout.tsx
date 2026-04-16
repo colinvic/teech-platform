@@ -2,6 +2,8 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider'
+import { AuthHashHandler } from '@/components/AuthHashHandler'
+
 
 export const metadata: Metadata = {
   title: {
@@ -31,21 +33,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  themeColor: '#090E1A',
-}
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="en-AU">
-      <body className="min-h-screen bg-deep text-white antialiased font-sans">
-        <AccessibilityProvider>
-          {children}
-        </AccessibilityProvider>
-      </body>
-    </html>
-  )
-}
