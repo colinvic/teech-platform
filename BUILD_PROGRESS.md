@@ -23,6 +23,7 @@ Claude must update this file:
 - **When a major bug is identified** — add to Known Issues (Live), with live-fix status and repo-fix owed
 - **When a milestone is reached** — tick the relevant Phase item
 - **At least once per day** of active build — even if only incremental
+- **Log worth-logging items in the same turn** — if a technique, lesson, or observation is named as worth logging, capture it immediately; never defer
 
 Every session's Resume Prompt must answer: *what was the last thing deployed?* and *what is the next concrete step?* — no aspirational language.
 
