@@ -1,27 +1,47 @@
 // @ts-nocheck
 export const dynamic = 'force-dynamic'
+
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { createServerClient } from '@/lib/supabase'
+import { createAdminClient } from '@/lib/supabase'
 import Link from 'next/link'
 import { BoldToggle } from '@/components/accessibility/BoldToggle'
 import { IconHome, IconBadge, IconChart } from '@/components/icons'
 import { Logo } from '@/components/Logo'
 
 async function getStudentData() {
-  const supabase = await createServerClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return null
+  // Read session cookie directly (bypasses @supabase/ssr 0.3.0 bug)
+  // Same workaround as src/app/(student)/dashboard/page.tsx
+  const cookieStore = await cookies()
+  const authCookie = cookieStore.getAll().find(c =>
+    c.name.startsWith('sb-') && c.name.endsWith('-auth-token')
+  )
+  if (!authCookie) return null
 
+  let userId: string | null = null
+  try {
+    const session = JSON.parse(decodeURIComponent(authCookie.value))
+    userId = session?.user?.id ?? null
+  } catch {
+    return null
+  }
+  if (!userId) return null
+
+  // Use admin client for queries (bypasses RLS, we already validated the session)
+  const supabase = createAdminClient()
   const { data } = await supabase
     .from('profiles')
     .select('full_name, role')
-    .eq('id', user.id)
+    .eq('id', userId)
     .single<{ full_name: string | null; role: string }>()
-
   return data
 }
 
-export default async function StudentLayout({ children }: { children: React.ReactNode }) {
+export default async function StudentLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const student = await getStudentData()
   if (!student) redirect('/login')
   if (student.role !== 'student') redirect('/login')
@@ -56,9 +76,9 @@ export default async function StudentLayout({ children }: { children: React.Reac
         <div className="max-w-2xl mx-auto px-4">
           <div className="flex items-center justify-around py-2">
             {[
-              { href: '/dashboard',   Icon: IconHome,   label: 'Learn'   },
-              { href: '/badges',      Icon: IconBadge,  label: 'Badges'  },
-              { href: '/report',      Icon: IconChart,  label: 'Report'  },
+              { href: '/dashboard', Icon: IconHome, label: 'Learn' },
+              { href: '/badges', Icon: IconBadge, label: 'Badges' },
+              { href: '/report', Icon: IconChart, label: 'Report' },
             ].map(({ href, Icon, label }) => (
               <Link
                 key={href}
