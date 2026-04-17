@@ -225,21 +225,77 @@ Ordered by severity. Each lists: symptom · root cause · live fix · repo fix o
 
 ---
 
+## Working Techniques
+
+Durable notes on non-obvious techniques that took effort to discover. Update when a new one is validated.
+
+### Editing large files via GitHub web editor (CodeMirror 6)
+
+GitHub's /edit/main/<file> URL opens a CM6 editor. For large replacements, these behaviours matter:
+
+- `Ctrl+A` followed by `Ctrl+Shift+End` or `Ctrl+Home`+`Ctrl+Shift+End` can freeze the renderer on files >300 lines. Avoid.
+- `document.execCommand('insertText', ...)` does not work on CM6 — it uses contenteditable with its own dispatcher.
+- Setting the DOM `Selection` range then dispatching a `ClipboardEvent('paste')` **inserts at cursor rather than replacing** — CM6's internal `EditorState.selection` doesn't track the DOM Selection we set manually. Produces duplicated content.
+- `input[type=file].files = dataTransfer.files` is blocked by Chrome's security policy for non-trusted script contexts.
+
+The technique that works reliably:
+
+1. Navigate to `https://github.com/<owner>/<repo>/edit/main/<path>`
+2. Wait 4-6 seconds for CM6 to initialize
+3. Click into the editor area with a real click (coordinates around y=400-500 in a ~700px viewport)
+4. Send real keyboard `Ctrl+A` via the browser tool (goes through CM6's keymap, syncs internal selection with DOM selection)
+5. Send real keyboard `Delete`
+6. Verify the editor is empty: `document.querySelector('.cm-content').querySelectorAll('.cm-line').length === 1` and total textContent length around 24 chars (the "Enter file contents here" placeholder)
+7. Focus `.cm-content` and dispatch a synthetic paste:
+   ```js
+   const dt = new DataTransfer();
+   dt.setData('text/plain', content);
+   cmContent.dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true }));
+   ```
+8. Wait 2 seconds, verify via screenshot that content landed and Commit button is green
+9. Click Commit changes... button (top right)
+10. In the dialog, triple-click the message field, type the real commit message, click green Commit changes button
+
+The critical insight: synthetic paste into an *empty* editor works cleanly; synthetic paste over a *selection* inserts-at-cursor and produces duplication. Empty first, then paste.
+
+### Running SQL against Supabase via the web SQL editor
+
+- Supabase SQL editor is also CM6 but paste works normally via `Ctrl+A` + `Ctrl+V` + `Ctrl+Return`; the editor isn't virtualized and doesn't have the same selection-sync issue.
+- Run small diagnostic queries first (e.g. `SELECT column_name, data_type FROM information_schema.columns WHERE table_name = ...`) before writing INSERTs — this repo has schema NOT-NULL constraints that aren't in the ORM types (`assessment_questions.question_type`, `acara_descriptor_code`).
+- When an RPC fails silently through the API, test it directly in SQL editor: `SELECT my_rpc(args);` — the error surfaces with `ERROR: <code>: <message>` instead of being swallowed by the route's try/catch. This would have saved ~20 turns on the `mark_card_read` type-mismatch bug.
+
+### Debugging @supabase/ssr 0.3.0 cookie bug
+
+- Symptom: `createServerClient().auth.getUser()` returns `{ user: null }` despite a valid session cookie.
+- Confirmed by calling `/api/<route>` directly in DevTools console via `fetch('/api/...').then(r => r.json())` — returns `{"success":false,"error":"Unauthorised"}` even when the page rendered under an authenticated layout.
+- Fix pattern, applied route-by-route:
+  ```ts
+  // Replace:
+  const supabase = await createServerClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ success: false, error: 'Unauthorised' }, { status: 401 })
+  // With:
+  const userId = await getServerSessionUserId()
+  if (!userId) return NextResponse.json({ success: false, error: 'Unauthorised' }, { status: 401 })
+  const supabase = createAdminClient()
+  ```
+
+---
+
 ## Session Log
 
 Reverse chronological. Each entry: date (AWST), commits deployed, DB changes, what's working, blockers.
 
-### 2026-04-18 — BUILD_PROGRESS.md restructure
+### 2026-04-18 — Working Techniques section added
 
 **Commits deployed:**
-- (this commit) — docs: add Working Agreements + Known Issues + Session Log sections
+- `62d667f` — docs: add Working Agreements + Known Issues + Session Log to BUILD_PROGRESS
+- (this commit) — docs: add Working Techniques section (CM6 editing, SQL diagnostics, ssr auth fix pattern)
 
 **What changed:**
-- Added Working Agreements section encoding the update-frequency rule
-- Added Known Issues (Live) section documenting 2 HIGH, 3 MEDIUM, 2 LOW bugs
-- Added Session Log (reverse chrono); this entry captures the restructure itself
-- Updated tick marks on completed items
-- Added Key Decisions row: BUILD_PROGRESS.md is source of truth, Projects copy is a mirror
+- Added Working Techniques section documenting the GitHub CM6 paste technique validated in 62d667f
+- Includes the Supabase SQL editor workflow and the @supabase/ssr auth.getUser fix pattern
+- Intended as durable reference so future sessions don't re-discover these
 
 **Next concrete step (carrying from 2026-04-17):**
 - Verify practice route patch deployed → /practice renders 10 MCQs → walk through to /assess → first badge
