@@ -1,12 +1,12 @@
 // @ts-nocheck
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase'
+import { createAdminClient, getServerSessionUserId } from '@/lib/supabase'
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createServerClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return NextResponse.json({ success: false, error: 'Unauthorised' }, { status: 401 })
+    const userId = await getServerSessionUserId()
+    if (!userId) return NextResponse.json({ success: false, error: 'Unauthorised', code: 'UNAUTHORISED' }, { status: 401 })
+    const supabase = createAdminClient()
 
     const slug = request.nextUrl.searchParams.get('slug')
     if (!slug) return NextResponse.json({ success: false, error: 'Missing slug' }, { status: 400 })
