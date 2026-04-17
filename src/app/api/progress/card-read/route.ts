@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { createServerClient } from '@/lib/supabase'
+import { createAdminClient, getServerSessionUserId } from '@/lib/supabase'
 
 const schema = z.object({
   sectionId: z.string().uuid(),
@@ -11,9 +11,9 @@ const schema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createServerClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return NextResponse.redirect(new URL('/login', request.url))
+    // Auth: extract user id from cookie (bypasses @supabase/ssr 0.3.0 bug)
+    const userId = await getServerSessionUserId()
+    if (!userId) return NextResponse.redirect(new URL('/login', request.url))
 
     const body = await request.formData()
     const parsed = schema.safeParse({
@@ -21,17 +21,17 @@ export async function POST(request: NextRequest) {
       cardsViewed: body.get('cardsViewed'),
       cardsTotal: body.get('cardsTotal'),
     })
-
     if (!parsed.success) return NextResponse.redirect(new URL('/dashboard', request.url))
 
     const { sectionId, cardsViewed, cardsTotal } = parsed.data
 
+    const supabase = createAdminClient()
+
     const { data: profile } = await supabase
       .from('profiles')
       .select('id')
-      .eq('id', user.id)
+      .eq('id', userId)
       .single<{ id: string }>()
-
     if (!profile) return NextResponse.redirect(new URL('/login', request.url))
 
     await supabase.rpc('mark_card_read', {
@@ -41,17 +41,13 @@ export async function POST(request: NextRequest) {
       p_cards_total: cardsTotal,
     })
 
-    // Get the section slug to redirect back
     const { data: section } = await supabase
       .from('curriculum_sections')
       .select('slug')
       .eq('id', sectionId)
       .single<{ slug: string }>()
 
-    const redirectUrl = section
-      ? `/section/${section.slug}/learn`
-      : '/dashboard'
-
+    const redirectUrl = section ? `/section/${section.slug}/learn` : '/dashboard'
     return NextResponse.redirect(new URL(redirectUrl, request.url))
   } catch {
     return NextResponse.redirect(new URL('/dashboard', request.url))
