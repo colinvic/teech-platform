@@ -10,15 +10,33 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   throw new Error('[teech] Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY.')
 }
 
-// Browser client â for Client Components only
+// Browser client — for Client Components only
 export function createBrowserClient() {
   return supabaseCreateBrowserClient(SUPABASE_URL!, SUPABASE_ANON_KEY!)
 }
 
-// Server client â for Server Components, Route Handlers, Server Actions
+// Server client — for Server Components, Route Handlers, Server Actions
+// Extracts JWT from the sb-*-auth-token cookie and passes it as an Authorization
+// header, so auth.getUser() and RLS-scoped queries work correctly despite
+// @supabase/ssr 0.3.0 failing to parse Supabase's single-cookie session format.
 export async function createServerClient() {
   const { cookies } = await import('next/headers')
   const cookieStore = await cookies()
+
+  // Workaround for @supabase/ssr 0.3.0 single-cookie bug
+  let accessToken: string | null = null
+  const authCookie = cookieStore.getAll().find(c =>
+    c.name.startsWith('sb-') && c.name.endsWith('-auth-token')
+  )
+  if (authCookie) {
+    try {
+      const session = JSON.parse(decodeURIComponent(authCookie.value))
+      accessToken = session?.access_token ?? null
+    } catch {
+      // cookie might be chunked (legacy format) — let @supabase/ssr handle it
+    }
+  }
+
   return supabaseCreateServerClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
     cookies: {
       getAll() { return cookieStore.getAll() },
@@ -28,14 +46,36 @@ export async function createServerClient() {
             cookieStore.set(name, value, options)
           )
         } catch {
-          // Safe to ignore in Server Components â session refreshed by middleware
+          // Safe to ignore in Server Components — session refreshed by middleware
         }
       },
     },
+    ...(accessToken ? {
+      global: { headers: { Authorization: `Bearer ${accessToken}` } },
+    } : {}),
   })
 }
 
-// Admin client â service role, server-side only, never expose to client
+// Extract the authenticated user's ID directly from the session cookie.
+// Bypasses @supabase/ssr 0.3.0 cookie parsing entirely.
+// Use together with createAdminClient() for pages that want user-scoped queries
+// without relying on RLS (queries must filter by user id explicitly).
+export async function getServerSessionUserId(): Promise<string | null> {
+  const { cookies } = await import('next/headers')
+  const cookieStore = await cookies()
+  const authCookie = cookieStore.getAll().find(c =>
+    c.name.startsWith('sb-') && c.name.endsWith('-auth-token')
+  )
+  if (!authCookie) return null
+  try {
+    const session = JSON.parse(decodeURIComponent(authCookie.value))
+    return session?.user?.id ?? null
+  } catch {
+    return null
+  }
+}
+
+// Admin client — service role, server-side only, never expose to client
 export function createAdminClient() {
   if (!SUPABASE_SERVICE_ROLE_KEY) {
     throw new Error('[teech] Missing SUPABASE_SERVICE_ROLE_KEY. Server-side only.')
