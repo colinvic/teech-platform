@@ -19,7 +19,7 @@ interface PracticeQuestion {
 }
 
 interface PracticePageProps {
-  params: Promise<{ slug: string }>
+params: { slug: string }
 }
 
 // Client-side practice mode Ã¢ÂÂ questions fetched from public practice bank
@@ -36,12 +36,10 @@ export default function PracticePage({ params }: PracticePageProps) {
   const [sessionComplete, setSessionComplete] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    params.then(({ slug: s }) => {
-      setSlug(s)
-      fetchPracticeQuestions(s)
-    })
-  }, [params])
+     useEffect(() => {
+       setSlug(params.slug)
+       fetchPracticeQuestions(params.slug)
+     }, [params])
 
   const fetchPracticeQuestions = useCallback(async (sectionSlug: string) => {
     try {
